@@ -1,0 +1,27 @@
+# Core web vulnerability scanner dependencies (CA_web_vuln.py)
+requests
+beautifulsoup4
+
+# Cryptography for sensitive information protection (web scanner)
+cryptography
+
+# Network scanning and security (CA_network_scan.py)
+python-nmap
+scapy
+netaddr
+
+# Database connectivity (ca_lab_db/app/app.py)
+mysql-connector-python
+
+# Web framework (ca_lab_db/app/app.py)
+Flask
+Werkzeug
+
+# Additional utilities (optional)
+colorama
+tqdm
+tabulate
+
+# Development and testing (optional)
+pytest
+pytest-cov

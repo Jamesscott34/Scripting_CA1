@@ -1,0 +1,22 @@
+[tool.black]
+line-length = 160
+target-version = ["py312", "py311", "py310"]
+
+[tool.ruff]
+line-length = 160
+target-version = "py312"
+exclude = [
+  ".git",
+  "__pycache__",
+  ".venv",
+  "venv",
+  "env",
+  "build",
+  "dist"
+]
+
+[tool.ruff.lint]
+select = ["E", "F"]
+ignore = ["E203"]
+
+

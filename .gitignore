@@ -1,0 +1,18 @@
+myvenv/
+CA 1 Secure Programming and Scripting_PT.docx
+secure_programming_CA1.pdf
+secure_programming_CA1.docx
+Web_Scans/
+Network_Scans/
+error_reports/
+ip_targets.txt
+logs.txt
+
+
+
+# Lint/format caches
+.ruff_cache/
+.pytest_cache/
+__pycache__/
+
+
