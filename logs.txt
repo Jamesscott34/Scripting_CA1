@@ -1,0 +1,501 @@
+Jan 15 10:30:15 server01 kernel: [12345.678901] ERROR: Out of memory in zone Normal
+Jan 15 10:30:16 server01 sshd[1234]: Failed password for invalid user admin from 192.168.1.100 port 22 ssh2
+Jan 15 10:30:17 server01 systemd[1]: Failed to start nginx.service: Unit nginx.service failed to load
+Jan 15 10:30:18 server01 CRON[5678]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily ))
+Jan 15 10:30:19 server01 kernel: [12345.678902] WARNING: CPU temperature above threshold
+Jan 15 10:30:20 server01 sshd[1235]: Accepted publickey for user from 192.168.1.101 port 22 ssh2
+Jan 15 10:30:21 server01 nginx: 2024/01/15 10:30:21 [error] 1234#0: *1 connect() failed (111: Connection refused) while connecting to upstream
+Jan 15 10:30:22 server01 mysql: 2024-01-15 10:30:22 1234 [ERROR] InnoDB: Operating system error number 2 in a file operation
+Jan 15 10:30:23 server01 apache2: [Mon Jan 15 10:30:23 2024] [error] [client 192.168.1.102] File does not exist: /var/www/html/admin.php
+Jan 15 10:30:24 server01 fail2ban: 2024-01-15 10:30:24,123 fail2ban.actions: WARNING [sshd] Ban 192.168.1.100
+Jan 15 10:30:25 server01 ufw: [UFW BLOCK] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.200 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12345 DF PROTO=TCP SPT=12345 DPT=22 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:30:26 server01 systemd[1]: Starting MySQL Community Server...
+Jan 15 10:30:27 server01 kernel: [12345.678903] CRITICAL: Hardware error detected on disk /dev/sda
+Jan 15 10:30:28 server01 sshd[1236]: Connection closed by 192.168.1.100 [preauth]
+Jan 15 10:30:29 server01 nginx: 2024/01/15 10:30:29 [emerg] 1234#0: bind() to 0.0.0.0:80 failed (98: Address already in use)
+Jan 15 10:30:30 server01 mysql: 2024-01-15 10:30:30 1234 [WARNING] Aborted connection 1234 to db: 'test' user: 'root' host: 'localhost' (Got an error reading communication packets)
+Jan 15 10:30:31 server01 apache2: [Mon Jan 15 10:30:31 2024] [warn] [client 192.168.1.103] Timeout waiting for output from CGI script
+Jan 15 10:30:32 server01 systemd[1]: nginx.service: Main process exited, code=exited, status=1/FAILURE
+Jan 15 10:30:33 server01 kernel: [12345.678904] ERROR: Unable to allocate memory for buffer
+Jan 15 10:30:34 server01 sshd[1237]: Invalid user testuser from 192.168.1.104 port 22 ssh2
+Jan 15 10:30:35 server01 CRON[5679]: (www-data) CMD (php /var/www/html/cron.php)
+Jan 15 10:30:36 server01 nginx: 2024/01/15 10:30:36 [crit] 1234#0: *2 connect() to unix:/var/run/php/php7.4-fpm.sock failed (2: No such file or directory)
+Jan 15 10:30:37 server01 mysql: 2024-01-15 10:30:37 1234 [ERROR] Got error 28 from storage engine
+Jan 15 10:30:38 server01 apache2: [Mon Jan 15 10:30:38 2024] [error] [client 192.168.1.105] PHP Fatal error: Call to undefined function mysql_connect() in /var/www/html/index.php on line 15
+Jan 15 10:30:39 server01 fail2ban: 2024-01-15 10:30:39,456 fail2ban.actions: NOTICE [sshd] Unban 192.168.1.100
+Jan 15 10:30:40 server01 ufw: [UFW ALLOW] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.101 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12346 DF PROTO=TCP SPT=12346 DPT=22 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:30:41 server01 systemd[1]: mysql.service: Failed to start MySQL Community Server
+Jan 15 10:30:42 server01 kernel: [12345.678905] WARNING: High memory usage detected (95% of available memory)
+Jan 15 10:30:43 server01 sshd[1238]: PAM authentication failure for user admin from 192.168.1.106
+Jan 15 10:30:44 server01 nginx: 2024/01/15 10:30:44 [alert] 1234#0: worker process 1235 exited on signal 11 (SIGSEGV)
+Jan 15 10:30:45 server01 mysql: 2024-01-15 10:30:45 1234 [ERROR] Table 'test.nonexistent_table' doesn't exist
+Jan 15 10:30:46 server01 apache2: [Mon Jan 15 10:30:46 2024] [error] [client 192.168.1.107] client denied by server configuration: /var/www/html/.htaccess
+Jan 15 10:30:47 server01 systemd[1]: Starting PostgreSQL 13 database server...
+Jan 15 10:30:48 server01 kernel: [12345.678906] ERROR: Network interface eth0: link down
+Jan 15 10:30:49 server01 sshd[1239]: Connection reset by peer from 192.168.1.108 port 22
+Jan 15 10:30:50 server01 nginx: 2024/01/15 10:30:50 [error] 1234#0: *3 upstream timed out (60: Operation timed out) while reading response header from upstream
+Jan 15 10:30:51 server01 mysql: 2024-01-15 10:30:51 1234 [WARNING] Using a password on the command line interface can be insecure
+Jan 15 10:30:52 server01 apache2: [Mon Jan 15 10:30:52 2024] [notice] Apache/2.4.41 (Ubuntu) configured -- resuming normal operations
+Jan 15 10:30:53 server01 fail2ban: 2024-01-15 10:30:53,789 fail2ban.actions: WARNING [apache-auth] Ban 192.168.1.109
+Jan 15 10:30:54 server01 ufw: [UFW BLOCK] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.200 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12347 DF PROTO=TCP SPT=12347 DPT=80 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:30:55 server01 systemd[1]: postgresql@13-main.service: Failed to start PostgreSQL 13 database server
+Jan 15 10:30:56 server01 kernel: [12345.678907] CRITICAL: Filesystem corruption detected on /dev/sda1
+Jan 15 10:30:57 server01 sshd[1240]: Failed password for root from 192.168.1.110 port 22 ssh2
+Jan 15 10:30:58 server01 nginx: 2024/01/15 10:30:58 [error] 1234#0: *4 recv() failed (104: Connection reset by peer) while reading client request body
+Jan 15 10:30:59 server01 mysql: 2024-01-15 10:30:59 1234 [ERROR] Access denied for user 'testuser'@'localhost' (using password: YES)
+Jan 15 10:31:00 server01 apache2: [Mon Jan 15 10:31:00 2024] [error] [client 192.168.1.111] script not found or unable to stat: /var/www/html/exploit.php
+Jan 15 10:31:01 server01 systemd[1]: Started MySQL Community Server
+Jan 15 10:31:02 server01 kernel: [12345.678908] WARNING: CPU frequency scaling: performance governor not available
+Jan 15 10:31:03 server01 sshd[1241]: Accepted publickey for deploy from 192.168.1.112 port 22 ssh2
+Jan 15 10:31:04 server01 nginx: 2024/01/15 10:31:04 [warn] 1234#0: *5 a client request body is buffered to a temporary file /var/cache/nginx/client_temp/0000000001
+Jan 15 10:31:05 server01 mysql: 2024-01-15 10:31:05 1234 [Note] InnoDB: Buffer pool(s) load completed at 240115 10:31:05
+Jan 15 10:31:06 server01 apache2: [Mon Jan 15 10:31:06 2024] [info] [client 192.168.1.113] "GET /index.html HTTP/1.1" 200 1234 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36"
+Jan 15 10:31:07 server01 fail2ban: 2024-01-15 10:31:07,012 fail2ban.actions: NOTICE [apache-auth] Unban 192.168.1.109
+Jan 15 10:31:08 server01 ufw: [UFW ALLOW] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.101 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12348 DF PROTO=TCP SPT=12348 DPT=80 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:31:09 server01 systemd[1]: Started PostgreSQL 13 database server
+Jan 15 10:31:10 server01 kernel: [12345.678909] ERROR: Unable to mount filesystem /dev/sdb1: Invalid argument
+Jan 15 10:31:11 server01 sshd[1242]: Disconnected from 192.168.1.113 port 22
+Jan 15 10:31:12 server01 nginx: 2024/01/15 10:31:12 [error] 1234#0: *6 upstream sent too big header while reading response header from upstream
+Jan 15 10:31:13 server01 mysql: 2024-01-15 10:31:13 1234 [ERROR] Can't create table 'test.corrupted_table' (errno: 28 "No space left on device")
+Jan 15 10:31:14 server01 apache2: [Mon Jan 15 10:31:14 2024] [error] [client 192.168.1.114] Request exceeded the limit of 10 internal redirects due to probable configuration error
+Jan 15 10:31:15 server01 CRON[5680]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly ))
+Jan 15 10:31:16 server01 kernel: [12345.678910] WARNING: System load average is above 5.0
+Jan 15 10:31:17 server01 sshd[1243]: Connection refused by tcp_wrappers from 192.168.1.115
+Jan 15 10:31:18 server01 nginx: 2024/01/15 10:31:18 [error] 1234#0: *7 upstream prematurely closed connection while reading response header from upstream
+Jan 15 10:31:19 server01 mysql: 2024-01-15 10:31:19 1234 [WARNING] Statement is not safe to log in statement format
+Jan 15 10:31:20 server01 apache2: [Mon Jan 15 10:31:20 2024] [error] [client 192.168.1.116] AH00126: Invalid URI in request GET /../../../etc/passwd HTTP/1.1
+Jan 15 10:31:21 server01 fail2ban: 2024-01-15 10:31:21,345 fail2ban.actions: WARNING [nginx-http-auth] Ban 192.168.1.117
+Jan 15 10:31:22 server01 ufw: [UFW BLOCK] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.200 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12349 DF PROTO=TCP SPT=12349 DPT=443 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:31:23 server01 systemd[1]: nginx.service: Failed to restart nginx.service: Unit nginx.service is not loaded properly
+Jan 15 10:31:24 server01 kernel: [12345.678911] CRITICAL: Kernel panic - not syncing: Fatal exception in interrupt
+Jan 15 10:31:25 server01 sshd[1244]: MaxAuthTries exceeded for user admin from 192.168.1.118
+Jan 15 10:31:26 server01 nginx: 2024/01/15 10:31:26 [emerg] 1234#0: open() "/var/log/nginx/error.log" failed (13: Permission denied)
+Jan 15 10:31:27 server01 mysql: 2024-01-15 10:31:27 1234 [ERROR] Plugin 'InnoDB' init function returned error
+Jan 15 10:31:28 server01 apache2: [Mon Jan 15 10:31:28 2024] [error] [client 192.168.1.119] AH00135: Invalid method in request HEAD /admin HTTP/1.1
+Jan 15 10:31:29 server01 systemd[1]: mysql.service: Failed to restart MySQL Community Server
+Jan 15 10:31:30 server01 kernel: [12345.678912] ERROR: Unable to allocate DMA coherent memory
+Jan 15 10:31:31 server01 sshd[1245]: Connection closed by authenticating user admin from 192.168.1.120
+Jan 15 10:31:32 server01 nginx: 2024/01/15 10:31:32 [error] 1234#0: *8 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.1.121, server: example.com, request: "GET /api/data HTTP/1.1", upstream: "http://127.0.0.1:8080/api/data", host: "example.com"
+Jan 15 10:31:33 server01 mysql: 2024-01-15 10:31:33 1234 [ERROR] Incorrect key file for table 'test.users'; try to repair it
+Jan 15 10:31:34 server01 apache2: [Mon Jan 15 10:31:34 2024] [error] [client 192.168.1.122] AH00124: Request exceeded the limit of 10 internal redirects due to probable configuration error: /var/www/html/index.php
+Jan 15 10:31:35 server01 fail2ban: 2024-01-15 10:31:35,678 fail2ban.actions: NOTICE [nginx-http-auth] Unban 192.168.1.117
+Jan 15 10:31:36 server01 ufw: [UFW ALLOW] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.101 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12350 DF PROTO=TCP SPT=12350 DPT=443 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:31:37 server01 systemd[1]: postgresql@13-main.service: Failed to restart PostgreSQL 13 database server
+Jan 15 10:31:38 server01 kernel: [12345.678913] WARNING: CPU throttling detected - performance may be degraded
+Jan 15 10:31:39 server01 sshd[1246]: PAM service(sshd) ignoring max retries; 6 > 3
+Jan 15 10:31:40 server01 nginx: 2024/01/15 10:31:40 [error] 1234#0: *9 upstream sent invalid response while reading response header from upstream
+Jan 15 10:31:41 server01 mysql: 2024-01-15 10:31:41 1234 [ERROR] Table 'test.logs' is marked as crashed and should be repaired
+Jan 15 10:31:42 server01 apache2: [Mon Jan 15 10:31:42 2024] [error] [client 192.168.1.123] AH00125: Request body read timeout
+Jan 15 10:31:43 server01 CRON[5681]: (www-data) CMD (php /var/www/html/cleanup.php)
+Jan 15 10:31:44 server01 kernel: [12345.678914] ERROR: Unable to initialize graphics device
+Jan 15 10:31:45 server01 sshd[1247]: Connection from 192.168.1.124 port 22 refused: too many connections
+Jan 15 10:31:46 server01 nginx: 2024/01/15 10:31:46 [error] 1234#0: *10 upstream timed out (60: Operation timed out) while reading response header from upstream, client: 192.168.1.125, server: api.example.com, request: "POST /upload HTTP/1.1", upstream: "http://127.0.0.1:3000/upload", host: "api.example.com"
+Jan 15 10:31:47 server01 mysql: 2024-01-15 10:31:47 1234 [WARNING] Unsafe statement written to the binary log using statement format since BINLOG_FORMAT = STATEMENT
+Jan 15 10:31:48 server01 apache2: [Mon Jan 15 10:31:48 2024] [error] [client 192.168.1.126] AH00127: Cannot serve directory /var/www/html/uploads/: No matching DirectoryIndex (index.html,index.php) found
+Jan 15 10:31:49 server01 fail2ban: 2024-01-15 10:31:49,901 fail2ban.actions: WARNING [sshd] Ban 192.168.1.127
+Jan 15 10:31:50 server01 ufw: [UFW BLOCK] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.200 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12351 DF PROTO=TCP SPT=12351 DPT=21 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:31:51 server01 systemd[1]: nginx.service: Failed to start nginx.service: Job for nginx.service failed because the control process exited with error code
+Jan 15 10:31:52 server01 kernel: [12345.678915] CRITICAL: Memory corruption detected - system unstable
+Jan 15 10:31:53 server01 sshd[1248]: Invalid user administrator from 192.168.1.128 port 22 ssh2
+Jan 15 10:31:54 server01 nginx: 2024/01/15 10:31:54 [error] 1234#0: *11 recv() failed (104: Connection reset by peer) while reading client request body, client: 192.168.1.129, server: www.example.com, request: "POST /login HTTP/1.1", upstream: "http://127.0.0.1:8080/login", host: "www.example.com"
+Jan 15 10:31:55 server01 mysql: 2024-01-15 10:31:55 1234 [ERROR] Got error 139 from storage engine
+Jan 15 10:31:56 server01 apache2: [Mon Jan 15 10:31:56 2024] [error] [client 192.168.1.130] AH00128: File does not exist: /var/www/html/wp-admin/admin-ajax.php
+Jan 15 10:31:57 server01 systemd[1]: mysql.service: Failed to start MySQL Community Server: Job for mysql.service failed because the control process exited with error code
+Jan 15 10:31:58 server01 kernel: [12345.678916] WARNING: Temperature above critical threshold - system may shutdown
+Jan 15 10:31:59 server01 sshd[1249]: Connection closed by 192.168.1.131 [preauth]
+Jan 15 10:32:00 server01 nginx: 2024/01/15 10:32:00 [error] 1234#0: *12 upstream sent invalid chunked response while reading response header from upstream
+Jan 15 10:32:01 server01 mysql: 2024-01-15 10:32:01 1234 [ERROR] Table 'test.sessions' is marked as crashed and should be repaired
+Jan 15 10:32:02 server01 apache2: [Mon Jan 15 10:32:02 2024] [error] [client 192.168.1.132] AH00129: Request body read timeout, referer: http://example.com/login
+Jan 15 10:32:03 server01 fail2ban: 2024-01-15 10:32:03,234 fail2ban.actions: NOTICE [sshd] Unban 192.168.1.127
+Jan 15 10:32:04 server01 ufw: [UFW ALLOW] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.101 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12352 DF PROTO=TCP SPT=12352 DPT=21 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:32:05 server01 systemd[1]: postgresql@13-main.service: Failed to start PostgreSQL 13 database server: Job for postgresql@13-main.service failed because the control process exited with error code
+Jan 15 10:32:06 server01 kernel: [12345.678917] ERROR: Unable to allocate contiguous memory
+Jan 15 10:32:07 server01 sshd[1250]: Connection from 192.168.1.133 port 22 refused: maximum authentication attempts exceeded
+Jan 15 10:32:08 server01 nginx: 2024/01/15 10:32:08 [error] 1234#0: *13 upstream sent too big header while reading response header from upstream, client: 192.168.1.134, server: api.example.com, request: "GET /data HTTP/1.1", upstream: "http://127.0.0.1:3000/data", host: "api.example.com"
+Jan 15 10:32:09 server01 mysql: 2024-01-15 10:32:09 1234 [WARNING] Statement is not safe to log in statement format since BINLOG_FORMAT = STATEMENT
+Jan 15 10:32:10 server01 apache2: [Mon Jan 15 10:32:10 2024] [error] [client 192.168.1.135] AH00130: Request exceeded the limit of 10 internal redirects due to probable configuration error: /var/www/html/admin/index.php
+Jan 15 10:32:11 server01 CRON[5682]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly ))
+Jan 15 10:32:12 server01 kernel: [12345.678918] WARNING: System load average is critically high (15.0)
+Jan 15 10:32:13 server01 sshd[1251]: PAM authentication failure for user root from 192.168.1.136
+Jan 15 10:32:14 server01 nginx: 2024/01/15 10:32:14 [error] 1234#0: *14 upstream prematurely closed connection while reading response header from upstream, client: 192.168.1.137, server: www.example.com, request: "GET /api/users HTTP/1.1", upstream: "http://127.0.0.1:8080/api/users", host: "www.example.com"
+Jan 15 10:32:15 server01 mysql: 2024-01-15 10:32:15 1234 [ERROR] Can't create table 'test.audit_log' (errno: 28 "No space left on device")
+Jan 15 10:32:16 server01 apache2: [Mon Jan 15 10:32:16 2024] [error] [client 192.168.1.138] AH00131: Request body read timeout, referer: http://example.com/upload
+Jan 15 10:32:17 server01 fail2ban: 2024-01-15 10:32:17,567 fail2ban.actions: WARNING [apache-auth] Ban 192.168.1.139
+Jan 15 10:32:18 server01 ufw: [UFW BLOCK] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.200 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12353 DF PROTO=TCP SPT=12353 DPT=3306 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:32:19 server01 systemd[1]: nginx.service: Failed to restart nginx.service: Job for nginx.service failed because the control process exited with error code
+Jan 15 10:32:20 server01 kernel: [12345.678919] CRITICAL: Kernel panic - not syncing: Out of memory and no killable processes
+Jan 15 10:32:21 server01 sshd[1252]: Invalid user guest from 192.168.1.140 port 22 ssh2
+Jan 15 10:32:22 server01 nginx: 2024/01/15 10:32:22 [emerg] 1234#0: open() "/var/log/nginx/access.log" failed (13: Permission denied)
+Jan 15 10:32:23 server01 mysql: 2024-01-15 10:32:23 1234 [ERROR] Plugin 'InnoDB' init function returned error
+Jan 15 10:32:24 server01 apache2: [Mon Jan 15 10:32:24 2024] [error] [client 192.168.1.141] AH00132: Request exceeded the limit of 10 internal redirects due to probable configuration error: /var/www/html/wp-admin/admin.php
+Jan 15 10:32:25 server01 systemd[1]: mysql.service: Failed to start MySQL Community Server: Job for mysql.service failed because the control process exited with error code
+Jan 15 10:32:26 server01 kernel: [12345.678920] ERROR: Unable to allocate DMA coherent memory for device
+Jan 15 10:32:27 server01 sshd[1253]: Connection closed by authenticating user admin from 192.168.1.142
+Jan 15 10:32:28 server01 nginx: 2024/01/15 10:32:28 [error] 1234#0: *15 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.1.143, server: api.example.com, request: "POST /upload HTTP/1.1", upstream: "http://127.0.0.1:3000/upload", host: "api.example.com"
+Jan 15 10:32:29 server01 mysql: 2024-01-15 10:32:29 1234 [ERROR] Incorrect key file for table 'test.products'; try to repair it
+Jan 15 10:32:30 server01 apache2: [Mon Jan 15 10:32:30 2024] [error] [client 192.168.1.144] AH00133: Request body read timeout, referer: http://example.com/checkout
+Jan 15 10:32:31 server01 fail2ban: 2024-01-15 10:32:31,890 fail2ban.actions: NOTICE [apache-auth] Unban 192.168.1.139
+Jan 15 10:32:32 server01 ufw: [UFW ALLOW] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.101 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12354 DF PROTO=TCP SPT=12354 DPT=3306 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:32:33 server01 systemd[1]: postgresql@13-main.service: Failed to start PostgreSQL 13 database server: Job for postgresql@13-main.service failed because the control process exited with error code
+Jan 15 10:32:34 server01 kernel: [12345.678921] WARNING: CPU frequency scaling: performance governor not available
+Jan 15 10:32:35 server01 sshd[1254]: PAM service(sshd) ignoring max retries; 6 > 3
+Jan 15 10:32:36 server01 nginx: 2024/01/15 10:32:36 [error] 1234#0: *16 upstream sent invalid response while reading response header from upstream, client: 192.168.1.145, server: www.example.com, request: "GET /api/status HTTP/1.1", upstream: "http://127.0.0.1:8080/api/status", host: "www.example.com"
+Jan 15 10:32:37 server01 mysql: 2024-01-15 10:32:37 1234 [ERROR] Table 'test.orders' is marked as crashed and should be repaired
+Jan 15 10:32:38 server01 apache2: [Mon Jan 15 10:32:38 2024] [error] [client 192.168.1.146] AH00134: Request exceeded the limit of 10 internal redirects due to probable configuration error: /var/www/html/shop/index.php
+Jan 15 10:32:39 server01 CRON[5683]: (www-data) CMD (php /var/www/html/backup.php)
+Jan 15 10:32:40 server01 kernel: [12345.678922] ERROR: Unable to initialize network interface
+Jan 15 10:32:41 server01 sshd[1255]: Connection from 192.168.1.147 port 22 refused: too many connections
+Jan 15 10:32:42 server01 nginx: 2024/01/15 10:32:42 [error] 1234#0: *17 upstream timed out (60: Operation timed out) while reading response header from upstream, client: 192.168.1.148, server: api.example.com, request: "GET /reports HTTP/1.1", upstream: "http://127.0.0.1:3000/reports", host: "api.example.com"
+Jan 15 10:32:43 server01 mysql: 2024-01-15 10:32:43 1234 [WARNING] Unsafe statement written to the binary log using statement format since BINLOG_FORMAT = STATEMENT
+Jan 15 10:32:44 server01 apache2: [Mon Jan 15 10:32:44 2024] [error] [client 192.168.1.149] AH00135: Cannot serve directory /var/www/html/reports/: No matching DirectoryIndex (index.html,index.php) found
+Jan 15 10:32:45 server01 fail2ban: 2024-01-15 10:32:45,123 fail2ban.actions: WARNING [nginx-http-auth] Ban 192.168.1.150
+Jan 15 10:32:46 server01 ufw: [UFW BLOCK] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.200 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12355 DF PROTO=TCP SPT=12355 DPT=5432 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:32:47 server01 systemd[1]: nginx.service: Failed to start nginx.service: Job for nginx.service failed because the control process exited with error code
+Jan 15 10:32:48 server01 kernel: [12345.678923] CRITICAL: Memory corruption detected - system unstable
+Jan 15 10:32:49 server01 sshd[1256]: Invalid user test from 192.168.1.151 port 22 ssh2
+Jan 15 10:32:50 server01 nginx: 2024/01/15 10:32:50 [error] 1234#0: *18 recv() failed (104: Connection reset by peer) while reading client request body, client: 192.168.1.152, server: www.example.com, request: "POST /api/login HTTP/1.1", upstream: "http://127.0.0.1:8080/api/login", host: "www.example.com"
+Jan 15 10:32:51 server01 mysql: 2024-01-15 10:32:51 1234 [ERROR] Got error 139 from storage engine
+Jan 15 10:32:52 server01 apache2: [Mon Jan 15 10:32:52 2024] [error] [client 192.168.1.153] AH00136: File does not exist: /var/www/html/wp-content/themes/custom/admin.php
+Jan 15 10:32:53 server01 systemd[1]: mysql.service: Failed to start MySQL Community Server: Job for mysql.service failed because the control process exited with error code
+Jan 15 10:32:54 server01 kernel: [12345.678924] WARNING: Temperature above critical threshold - system may shutdown
+Jan 15 10:32:55 server01 sshd[1257]: Connection closed by 192.168.1.154 [preauth]
+Jan 15 10:32:56 server01 nginx: 2024/01/15 10:32:56 [error] 1234#0: *19 upstream sent invalid chunked response while reading response header from upstream, client: 192.168.1.155, server: api.example.com, request: "GET /api/data HTTP/1.1", upstream: "http://127.0.0.1:3000/api/data", host: "api.example.com"
+Jan 15 10:32:57 server01 mysql: 2024-01-15 10:32:57 1234 [ERROR] Table 'test.sessions' is marked as crashed and should be repaired
+Jan 15 10:32:58 server01 apache2: [Mon Jan 15 10:32:58 2024] [error] [client 192.168.1.156] AH00137: Request body read timeout, referer: http://example.com/dashboard
+Jan 15 10:32:59 server01 fail2ban: 2024-01-15 10:32:59,456 fail2ban.actions: NOTICE [nginx-http-auth] Unban 192.168.1.150
+Jan 15 10:33:00 server01 ufw: [UFW ALLOW] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.101 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12356 DF PROTO=TCP SPT=12356 DPT=5432 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:33:01 server01 systemd[1]: postgresql@13-main.service: Failed to start PostgreSQL 13 database server: Job for postgresql@13-main.service failed because the control process exited with error code
+Jan 15 10:33:02 server01 kernel: [12345.678925] ERROR: Unable to allocate contiguous memory
+Jan 15 10:33:03 server01 sshd[1258]: Connection from 192.168.1.157 port 22 refused: maximum authentication attempts exceeded
+Jan 15 10:33:04 server01 nginx: 2024/01/15 10:33:04 [error] 1234#0: *20 upstream sent too big header while reading response header from upstream, client: 192.168.1.158, server: www.example.com, request: "GET /api/users HTTP/1.1", upstream: "http://127.0.0.1:8080/api/users", host: "www.example.com"
+Jan 15 10:33:05 server01 mysql: 2024-01-15 10:33:05 1234 [WARNING] Statement is not safe to log in statement format since BINLOG_FORMAT = STATEMENT
+Jan 15 10:33:06 server01 apache2: [Mon Jan 15 10:33:06 2024] [error] [client 192.168.1.159] AH00138: Request exceeded the limit of 10 internal redirects due to probable configuration error: /var/www/html/admin/dashboard.php
+Jan 15 10:33:07 server01 CRON[5684]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.daily ))
+Jan 15 10:33:08 server01 kernel: [12345.678926] WARNING: System load average is critically high (20.0)
+Jan 15 10:33:09 server01 sshd[1259]: PAM authentication failure for user root from 192.168.1.160
+Jan 15 10:33:10 server01 nginx: 2024/01/15 10:33:10 [error] 1234#0: *21 upstream prematurely closed connection while reading response header from upstream, client: 192.168.1.161, server: api.example.com, request: "POST /api/upload HTTP/1.1", upstream: "http://127.0.0.1:3000/api/upload", host: "api.example.com"
+Jan 15 10:33:11 server01 mysql: 2024-01-15 10:33:11 1234 [ERROR] Can't create table 'test.audit_log' (errno: 28 "No space left on device")
+Jan 15 10:33:12 server01 apache2: [Mon Jan 15 10:33:12 2024] [error] [client 192.168.1.162] AH00139: Request body read timeout, referer: http://example.com/upload
+Jan 15 10:33:13 server01 fail2ban: 2024-01-15 10:33:13,789 fail2ban.actions: WARNING [apache-auth] Ban 192.168.1.163
+Jan 15 10:33:14 server01 ufw: [UFW BLOCK] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.200 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12357 DF PROTO=TCP SPT=12357 DPT=25 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:33:15 server01 systemd[1]: nginx.service: Failed to restart nginx.service: Job for nginx.service failed because the control process exited with error code
+Jan 15 10:33:16 server01 kernel: [12345.678927] CRITICAL: Kernel panic - not syncing: Out of memory and no killable processes
+Jan 15 10:33:17 server01 sshd[1260]: Invalid user guest from 192.168.1.164 port 22 ssh2
+Jan 15 10:33:18 server01 nginx: 2024/01/15 10:33:18 [emerg] 1234#0: open() "/var/log/nginx/error.log" failed (13: Permission denied)
+Jan 15 10:33:19 server01 mysql: 2024-01-15 10:33:19 1234 [ERROR] Plugin 'InnoDB' init function returned error
+Jan 15 10:33:20 server01 apache2: [Mon Jan 15 10:33:20 2024] [error] [client 192.168.1.165] AH00140: Request exceeded the limit of 10 internal redirects due to probable configuration error: /var/www/html/wp-admin/admin.php
+Jan 15 10:33:21 server01 systemd[1]: mysql.service: Failed to start MySQL Community Server: Job for mysql.service failed because the control process exited with error code
+Jan 15 10:33:22 server01 kernel: [12345.678928] ERROR: Unable to allocate DMA coherent memory for device
+Jan 15 10:33:23 server01 sshd[1261]: Connection closed by authenticating user admin from 192.168.1.166
+Jan 15 10:33:24 server01 nginx: 2024/01/15 10:33:24 [error] 1234#0: *22 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.1.167, server: api.example.com, request: "POST /api/data HTTP/1.1", upstream: "http://127.0.0.1:3000/api/data", host: "api.example.com"
+Jan 15 10:33:25 server01 mysql: 2024-01-15 10:33:25 1234 [ERROR] Incorrect key file for table 'test.products'; try to repair it
+Jan 15 10:33:26 server01 apache2: [Mon Jan 15 10:33:26 2024] [error] [client 192.168.1.168] AH00141: Request body read timeout, referer: http://example.com/checkout
+Jan 15 10:33:27 server01 fail2ban: 2024-01-15 10:33:27,012 fail2ban.actions: NOTICE [apache-auth] Unban 192.168.1.163
+Jan 15 10:33:28 server01 ufw: [UFW ALLOW] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.101 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12358 DF PROTO=TCP SPT=12358 DPT=25 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:33:29 server01 systemd[1]: postgresql@13-main.service: Failed to start PostgreSQL 13 database server: Job for postgresql@13-main.service failed because the control process exited with error code
+Jan 15 10:33:30 server01 kernel: [12345.678929] WARNING: CPU frequency scaling: performance governor not available
+Jan 15 10:33:31 server01 sshd[1262]: PAM service(sshd) ignoring max retries; 6 > 3
+Jan 15 10:33:32 server01 nginx: 2024/01/15 10:33:32 [error] 1234#0: *23 upstream sent invalid response while reading response header from upstream, client: 192.168.1.169, server: www.example.com, request: "GET /api/status HTTP/1.1", upstream: "http://127.0.0.1:8080/api/status", host: "www.example.com"
+Jan 15 10:33:33 server01 mysql: 2024-01-15 10:33:33 1234 [ERROR] Table 'test.orders' is marked as crashed and should be repaired
+Jan 15 10:33:34 server01 apache2: [Mon Jan 15 10:33:34 2024] [error] [client 192.168.1.170] AH00142: Request exceeded the limit of 10 internal redirects due to probable configuration error: /var/www/html/shop/index.php
+Jan 15 10:33:35 server01 CRON[5685]: (www-data) CMD (php /var/www/html/cleanup.php)
+Jan 15 10:33:36 server01 kernel: [12345.678930] ERROR: Unable to initialize network interface
+Jan 15 10:33:37 server01 sshd[1263]: Connection from 192.168.1.171 port 22 refused: too many connections
+Jan 15 10:33:38 server01 nginx: 2024/01/15 10:33:38 [error] 1234#0: *24 upstream timed out (60: Operation timed out) while reading response header from upstream, client: 192.168.1.172, server: api.example.com, request: "GET /reports HTTP/1.1", upstream: "http://127.0.0.1:3000/reports", host: "api.example.com"
+Jan 15 10:33:39 server01 mysql: 2024-01-15 10:33:39 1234 [WARNING] Unsafe statement written to the binary log using statement format since BINLOG_FORMAT = STATEMENT
+Jan 15 10:33:40 server01 apache2: [Mon Jan 15 10:33:40 2024] [error] [client 192.168.1.173] AH00143: Cannot serve directory /var/www/html/reports/: No matching DirectoryIndex (index.html,index.php) found
+Jan 15 10:33:41 server01 fail2ban: 2024-01-15 10:33:41,345 fail2ban.actions: WARNING [nginx-http-auth] Ban 192.168.1.174
+Jan 15 10:33:42 server01 ufw: [UFW BLOCK] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.200 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12359 DF PROTO=TCP SPT=12359 DPT=993 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:33:43 server01 systemd[1]: nginx.service: Failed to start nginx.service: Job for nginx.service failed because the control process exited with error code
+Jan 15 10:33:44 server01 kernel: [12345.678931] CRITICAL: Memory corruption detected - system unstable
+Jan 15 10:33:45 server01 sshd[1264]: Invalid user test from 192.168.1.175 port 22 ssh2
+Jan 15 10:33:46 server01 nginx: 2024/01/15 10:33:46 [error] 1234#0: *25 recv() failed (104: Connection reset by peer) while reading client request body, client: 192.168.1.176, server: www.example.com, request: "POST /api/login HTTP/1.1", upstream: "http://127.0.0.1:8080/api/login", host: "www.example.com"
+Jan 15 10:33:47 server01 mysql: 2024-01-15 10:33:47 1234 [ERROR] Got error 139 from storage engine
+Jan 15 10:33:48 server01 apache2: [Mon Jan 15 10:33:48 2024] [error] [client 192.168.1.177] AH00144: File does not exist: /var/www/html/wp-content/themes/custom/admin.php
+Jan 15 10:33:49 server01 systemd[1]: mysql.service: Failed to start MySQL Community Server: Job for mysql.service failed because the control process exited with error code
+Jan 15 10:33:50 server01 kernel: [12345.678932] WARNING: Temperature above critical threshold - system may shutdown
+Jan 15 10:33:51 server01 sshd[1265]: Connection closed by 192.168.1.178 [preauth]
+Jan 15 10:33:52 server01 nginx: 2024/01/15 10:33:52 [error] 1234#0: *26 upstream sent invalid chunked response while reading response header from upstream, client: 192.168.1.179, server: api.example.com, request: "GET /api/data HTTP/1.1", upstream: "http://127.0.0.1:3000/api/data", host: "api.example.com"
+Jan 15 10:33:53 server01 mysql: 2024-01-15 10:33:53 1234 [ERROR] Table 'test.sessions' is marked as crashed and should be repaired
+Jan 15 10:33:54 server01 apache2: [Mon Jan 15 10:33:54 2024] [error] [client 192.168.1.180] AH00145: Request body read timeout, referer: http://example.com/dashboard
+Jan 15 10:33:55 server01 fail2ban: 2024-01-15 10:33:55,678 fail2ban.actions: NOTICE [nginx-http-auth] Unban 192.168.1.174
+Jan 15 10:33:56 server01 ufw: [UFW ALLOW] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.101 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12360 DF PROTO=TCP SPT=12360 DPT=993 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:33:57 server01 systemd[1]: postgresql@13-main.service: Failed to start PostgreSQL 13 database server: Job for postgresql@13-main.service failed because the control process exited with error code
+Jan 15 10:33:58 server01 kernel: [12345.678933] ERROR: Unable to allocate contiguous memory
+Jan 15 10:33:59 server01 sshd[1266]: Connection from 192.168.1.181 port 22 refused: maximum authentication attempts exceeded
+Jan 15 10:34:00 server01 nginx: 2024/01/15 10:34:00 [error] 1234#0: *27 upstream sent too big header while reading response header from upstream, client: 192.168.1.182, server: www.example.com, request: "GET /api/users HTTP/1.1", upstream: "http://127.0.0.1:8080/api/users", host: "www.example.com"
+Jan 15 10:34:01 server01 mysql: 2024-01-15 10:34:01 1234 [WARNING] Statement is not safe to log in statement format since BINLOG_FORMAT = STATEMENT
+Jan 15 10:34:02 server01 apache2: [Mon Jan 15 10:34:02 2024] [error] [client 192.168.1.183] AH00146: Request exceeded the limit of 10 internal redirects due to probable configuration error: /var/www/html/admin/dashboard.php
+Jan 15 10:34:03 server01 CRON[5686]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.weekly ))
+Jan 15 10:34:04 server01 kernel: [12345.678934] WARNING: System load average is critically high (25.0)
+Jan 15 10:34:05 server01 sshd[1267]: PAM authentication failure for user root from 192.168.1.184
+Jan 15 10:34:06 server01 nginx: 2024/01/15 10:34:06 [error] 1234#0: *28 upstream prematurely closed connection while reading response header from upstream, client: 192.168.1.185, server: api.example.com, request: "POST /api/upload HTTP/1.1", upstream: "http://127.0.0.1:3000/api/upload", host: "api.example.com"
+Jan 15 10:34:07 server01 mysql: 2024-01-15 10:34:07 1234 [ERROR] Can't create table 'test.audit_log' (errno: 28 "No space left on device")
+Jan 15 10:34:08 server01 apache2: [Mon Jan 15 10:34:08 2024] [error] [client 192.168.1.186] AH00147: Request body read timeout, referer: http://example.com/upload
+Jan 15 10:34:09 server01 fail2ban: 2024-01-15 10:34:09,901 fail2ban.actions: WARNING [apache-auth] Ban 192.168.1.187
+Jan 15 10:34:10 server01 ufw: [UFW BLOCK] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.200 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12361 DF PROTO=TCP SPT=12361 DPT=143 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:34:11 server01 systemd[1]: nginx.service: Failed to start nginx.service: Job for nginx.service failed because the control process exited with error code
+Jan 15 10:34:12 server01 kernel: [12345.678935] CRITICAL: Kernel panic - not syncing: Out of memory and no killable processes
+Jan 15 10:34:13 server01 sshd[1268]: Invalid user guest from 192.168.1.188 port 22 ssh2
+Jan 15 10:34:14 server01 nginx: 2024/01/15 10:34:14 [emerg] 1234#0: open() "/var/log/nginx/error.log" failed (13: Permission denied)
+Jan 15 10:34:15 server01 mysql: 2024-01-15 10:34:15 1234 [ERROR] Plugin 'InnoDB' init function returned error
+Jan 15 10:34:16 server01 apache2: [Mon Jan 15 10:34:16 2024] [error] [client 192.168.1.189] AH00148: Request exceeded the limit of 10 internal redirects due to probable configuration error: /var/www/html/wp-admin/admin.php
+Jan 15 10:34:17 server01 systemd[1]: mysql.service: Failed to start MySQL Community Server: Job for mysql.service failed because the control process exited with error code
+Jan 15 10:34:18 server01 kernel: [12345.678936] ERROR: Unable to allocate DMA coherent memory for device
+Jan 15 10:34:19 server01 sshd[1269]: Connection closed by authenticating user admin from 192.168.1.190
+Jan 15 10:34:20 server01 nginx: 2024/01/15 10:34:20 [error] 1234#0: *29 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.1.191, server: api.example.com, request: "POST /api/data HTTP/1.1", upstream: "http://127.0.0.1:3000/api/data", host: "api.example.com"
+Jan 15 10:34:21 server01 mysql: 2024-01-15 10:34:21 1234 [ERROR] Incorrect key file for table 'test.products'; try to repair it
+Jan 15 10:34:22 server01 apache2: [Mon Jan 15 10:34:22 2024] [error] [client 192.168.1.192] AH00149: Request body read timeout, referer: http://example.com/checkout
+Jan 15 10:34:23 server01 fail2ban: 2024-01-15 10:34:23,234 fail2ban.actions: NOTICE [apache-auth] Unban 192.168.1.187
+Jan 15 10:34:24 server01 ufw: [UFW ALLOW] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.101 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12362 DF PROTO=TCP SPT=12362 DPT=143 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:34:25 server01 systemd[1]: postgresql@13-main.service: Failed to start PostgreSQL 13 database server: Job for postgresql@13-main.service failed because the control process exited with error code
+Jan 15 10:34:26 server01 kernel: [12345.678937] WARNING: CPU frequency scaling: performance governor not available
+Jan 15 10:34:27 server01 sshd[1270]: PAM service(sshd) ignoring max retries; 6 > 3
+Jan 15 10:34:28 server01 nginx: 2024/01/15 10:34:28 [error] 1234#0: *30 upstream sent invalid response while reading response header from upstream, client: 192.168.1.193, server: www.example.com, request: "GET /api/status HTTP/1.1", upstream: "http://127.0.0.1:8080/api/status", host: "www.example.com"
+Jan 15 10:34:29 server01 mysql: 2024-01-15 10:34:29 1234 [ERROR] Table 'test.orders' is marked as crashed and should be repaired
+Jan 15 10:34:30 server01 apache2: [Mon Jan 15 10:34:30 2024] [error] [client 192.168.1.194] AH00150: Request exceeded the limit of 10 internal redirects due to probable configuration error: /var/www/html/shop/index.php
+Jan 15 10:34:31 server01 CRON[5687]: (www-data) CMD (php /var/www/html/backup.php)
+Jan 15 10:34:32 server01 kernel: [12345.678938] ERROR: Unable to initialize network interface
+Jan 15 10:34:33 server01 sshd[1271]: Connection from 192.168.1.195 port 22 refused: too many connections
+Jan 15 10:34:34 server01 nginx: 2024/01/15 10:34:34 [error] 1234#0: *31 upstream timed out (60: Operation timed out) while reading response header from upstream, client: 192.168.1.196, server: api.example.com, request: "GET /reports HTTP/1.1", upstream: "http://127.0.0.1:3000/reports", host: "api.example.com"
+Jan 15 10:34:35 server01 mysql: 2024-01-15 10:34:35 1234 [WARNING] Unsafe statement written to the binary log using statement format since BINLOG_FORMAT = STATEMENT
+Jan 15 10:34:36 server01 apache2: [Mon Jan 15 10:34:36 2024] [error] [client 192.168.1.197] AH00151: Cannot serve directory /var/www/html/reports/: No matching DirectoryIndex (index.html,index.php) found
+Jan 15 10:34:37 server01 fail2ban: 2024-01-15 10:34:37,567 fail2ban.actions: WARNING [nginx-http-auth] Ban 192.168.1.198
+Jan 15 10:34:38 server01 ufw: [UFW BLOCK] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.200 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12363 DF PROTO=TCP SPT=12363 DPT=110 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:34:39 server01 systemd[1]: nginx.service: Failed to start nginx.service: Job for nginx.service failed because the control process exited with error code
+Jan 15 10:34:40 server01 kernel: [12345.678939] CRITICAL: Memory corruption detected - system unstable
+Jan 15 10:34:41 server01 sshd[1272]: Invalid user test from 192.168.1.199 port 22 ssh2
+Jan 15 10:34:42 server01 nginx: 2024/01/15 10:34:42 [error] 1234#0: *32 recv() failed (104: Connection reset by peer) while reading client request body, client: 192.168.1.200, server: www.example.com, request: "POST /api/login HTTP/1.1", upstream: "http://127.0.0.1:8080/api/login", host: "www.example.com"
+Jan 15 10:34:43 server01 mysql: 2024-01-15 10:34:43 1234 [ERROR] Got error 139 from storage engine
+Jan 15 10:34:44 server01 apache2: [Mon Jan 15 10:34:44 2024] [error] [client 192.168.1.201] AH00152: File does not exist: /var/www/html/wp-content/themes/custom/admin.php
+Jan 15 10:34:45 server01 systemd[1]: mysql.service: Failed to start MySQL Community Server: Job for mysql.service failed because the control process exited with error code
+Jan 15 10:34:46 server01 kernel: [12345.678940] WARNING: Temperature above critical threshold - system may shutdown
+Jan 15 10:34:47 server01 sshd[1273]: Connection closed by 192.168.1.202 [preauth]
+Jan 15 10:34:48 server01 nginx: 2024/01/15 10:34:48 [error] 1234#0: *33 upstream sent invalid chunked response while reading response header from upstream, client: 192.168.1.203, server: api.example.com, request: "GET /api/data HTTP/1.1", upstream: "http://127.0.0.1:3000/api/data", host: "api.example.com"
+Jan 15 10:34:49 server01 mysql: 2024-01-15 10:34:49 1234 [ERROR] Table 'test.sessions' is marked as crashed and should be repaired
+Jan 15 10:34:50 server01 apache2: [Mon Jan 15 10:34:50 2024] [error] [client 192.168.1.204] AH00153: Request body read timeout, referer: http://example.com/dashboard
+Jan 15 10:34:51 server01 fail2ban: 2024-01-15 10:34:51,890 fail2ban.actions: NOTICE [nginx-http-auth] Unban 192.168.1.198
+Jan 15 10:34:52 server01 ufw: [UFW ALLOW] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.101 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12364 DF PROTO=TCP SPT=12364 DPT=110 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:34:53 server01 systemd[1]: postgresql@13-main.service: Failed to start PostgreSQL 13 database server: Job for postgresql@13-main.service failed because the control process exited with error code
+Jan 15 10:34:54 server01 kernel: [12345.678941] ERROR: Unable to allocate contiguous memory
+Jan 15 10:34:55 server01 sshd[1274]: Connection from 192.168.1.205 port 22 refused: maximum authentication attempts exceeded
+Jan 15 10:34:56 server01 nginx: 2024/01/15 10:34:56 [error] 1234#0: *34 upstream sent too big header while reading response header from upstream, client: 192.168.1.206, server: www.example.com, request: "GET /api/users HTTP/1.1", upstream: "http://127.0.0.1:8080/api/users", host: "www.example.com"
+Jan 15 10:34:57 server01 mysql: 2024-01-15 10:34:57 1234 [WARNING] Statement is not safe to log in statement format since BINLOG_FORMAT = STATEMENT
+Jan 15 10:34:58 server01 apache2: [Mon Jan 15 10:34:58 2024] [error] [client 192.168.1.207] AH00154: Request exceeded the limit of 10 internal redirects due to probable configuration error: /var/www/html/admin/dashboard.php
+Jan 15 10:34:59 server01 CRON[5688]: (root) CMD (test -x /usr/sbin/anacron || ( cd / && run-parts --report /etc/cron.monthly ))
+Jan 15 10:35:00 server01 kernel: [12345.678942] WARNING: System load average is critically high (30.0)
+Jan 15 10:35:01 server01 sshd[1275]: PAM authentication failure for user root from 192.168.1.208
+Jan 15 10:35:02 server01 nginx: 2024/01/15 10:35:02 [error] 1234#0: *35 upstream prematurely closed connection while reading response header from upstream, client: 192.168.1.209, server: api.example.com, request: "POST /api/upload HTTP/1.1", upstream: "http://127.0.0.1:3000/api/upload", host: "api.example.com"
+Jan 15 10:35:03 server01 mysql: 2024-01-15 10:35:03 1234 [ERROR] Can't create table 'test.audit_log' (errno: 28 "No space left on device")
+Jan 15 10:35:04 server01 apache2: [Mon Jan 15 10:35:04 2024] [error] [client 192.168.1.210] AH00155: Request body read timeout, referer: http://example.com/upload
+Jan 15 10:35:05 server01 fail2ban: 2024-01-15 10:35:05,123 fail2ban.actions: WARNING [apache-auth] Ban 192.168.1.211
+Jan 15 10:35:06 server01 ufw: [UFW BLOCK] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.200 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12365 DF PROTO=TCP SPT=12365 DPT=995 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:35:07 server01 systemd[1]: nginx.service: Failed to start nginx.service: Job for nginx.service failed because the control process exited with error code
+Jan 15 10:35:08 server01 kernel: [12345.678943] CRITICAL: Kernel panic - not syncing: Out of memory and no killable processes
+Jan 15 10:35:09 server01 sshd[1276]: Invalid user guest from 192.168.1.212 port 22 ssh2
+Jan 15 10:35:10 server01 nginx: 2024/01/15 10:35:10 [emerg] 1234#0: open() "/var/log/nginx/error.log" failed (13: Permission denied)
+Jan 15 10:35:11 server01 mysql: 2024-01-15 10:35:11 1234 [ERROR] Plugin 'InnoDB' init function returned error
+Jan 15 10:35:12 server01 apache2: [Mon Jan 15 10:35:12 2024] [error] [client 192.168.1.213] AH00156: Request exceeded the limit of 10 internal redirects due to probable configuration error: /var/www/html/wp-admin/admin.php
+Jan 15 10:35:13 server01 systemd[1]: mysql.service: Failed to start MySQL Community Server: Job for mysql.service failed because the control process exited with error code
+Jan 15 10:35:14 server01 kernel: [12345.678944] ERROR: Unable to allocate DMA coherent memory for device
+Jan 15 10:35:15 server01 sshd[1277]: Connection closed by authenticating user admin from 192.168.1.214
+Jan 15 10:35:16 server01 nginx: 2024/01/15 10:35:16 [error] 1234#0: *36 connect() failed (111: Connection refused) while connecting to upstream, client: 192.168.1.215, server: api.example.com, request: "POST /api/data HTTP/1.1", upstream: "http://127.0.0.1:3000/api/data", host: "api.example.com"
+Jan 15 10:35:17 server01 mysql: 2024-01-15 10:35:17 1234 [ERROR] Incorrect key file for table 'test.products'; try to repair it
+Jan 15 10:35:18 server01 apache2: [Mon Jan 15 10:35:18 2024] [error] [client 192.168.1.216] AH00157: Request body read timeout, referer: http://example.com/checkout
+Jan 15 10:35:19 server01 fail2ban: 2024-01-15 10:35:19,456 fail2ban.actions: NOTICE [apache-auth] Unban 192.168.1.211
+Jan 15 10:35:20 server01 ufw: [UFW ALLOW] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.101 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12366 DF PROTO=TCP SPT=12366 DPT=995 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:35:21 server01 systemd[1]: postgresql@13-main.service: Failed to start PostgreSQL 13 database server: Job for postgresql@13-main.service failed because the control process exited with error code
+Jan 15 10:35:22 server01 kernel: [12345.678945] WARNING: CPU frequency scaling: performance governor not available
+Jan 15 10:35:23 server01 sshd[1278]: PAM service(sshd) ignoring max retries; 6 > 3
+Jan 15 10:35:24 server01 nginx: 2024/01/15 10:35:24 [error] 1234#0: *37 upstream sent invalid response while reading response header from upstream, client: 192.168.1.217, server: www.example.com, request: "GET /api/status HTTP/1.1", upstream: "http://127.0.0.1:8080/api/status", host: "www.example.com"
+Jan 15 10:35:25 server01 mysql: 2024-01-15 10:35:25 1234 [ERROR] Table 'test.orders' is marked as crashed and should be repaired
+Jan 15 10:35:26 server01 apache2: [Mon Jan 15 10:35:26 2024] [error] [client 192.168.1.218] AH00158: Request exceeded the limit of 10 internal redirects due to probable configuration error: /var/www/html/shop/index.php
+Jan 15 10:35:27 server01 CRON[5689]: (www-data) CMD (php /var/www/html/cleanup.php)
+Jan 15 10:35:28 server01 kernel: [12345.678946] ERROR: Unable to initialize network interface
+Jan 15 10:35:29 server01 sshd[1279]: Connection from 192.168.1.219 port 22 refused: too many connections
+Jan 15 10:35:30 server01 nginx: 2024/01/15 10:35:30 [error] 1234#0: *38 upstream timed out (60: Operation timed out) while reading response header from upstream, client: 192.168.1.220, server: api.example.com, request: "GET /reports HTTP/1.1", upstream: "http://127.0.0.1:3000/reports", host: "api.example.com"
+Jan 15 10:35:31 server01 mysql: 2024-01-15 10:35:31 1234 [WARNING] Unsafe statement written to the binary log using statement format since BINLOG_FORMAT = STATEMENT
+Jan 15 10:35:32 server01 apache2: [Mon Jan 15 10:35:32 2024] [error] [client 192.168.1.221] AH00159: Cannot serve directory /var/www/html/reports/: No matching DirectoryIndex (index.html,index.php) found
+Jan 15 10:35:33 server01 fail2ban: 2024-01-15 10:35:33,789 fail2ban.actions: WARNING [nginx-http-auth] Ban 192.168.1.222
+Jan 15 10:35:34 server01 ufw: [UFW BLOCK] IN=eth0 OUT= MAC=00:11:22:33:44:55:66:77:88:99:aa:bb:cc:dd SRC=192.168.1.200 DST=192.168.1.10 LEN=60 TOS=0x00 PREC=0x00 TTL=64 ID=12367 DF PROTO=TCP SPT=12367 DPT=587 WINDOW=14600 RES=0x00 SYN URGP=0
+Jan 15 10:35:35 server01 systemd[1]: nginx.service: Failed to start nginx.service: Job for nginx.service failed because the control process exited with error code
+Jan 15 10:35:36 server01 kernel: [12345.678947] CRITICAL: Memory corruption detected - system unstable
+Jan 15 10:35:37 server01 sshd[1280]: Invalid user test from 192.168.1.223 port 22 ssh2
+Jan 15 10:35:38 server01 apache2: [Mon Jan 15 10:35:38 2024] [error] [client 192.168.1.224] CRITICAL: SQL injection detected in query parameter 'id' - malicious payload: ' OR '1'='1
+Jan 15 10:35:39 server01 nginx: 2024/01/15 10:35:39 [alert] 1234#0: CRITICAL: XSS attack detected - cross-site scripting payload in request URI
+Jan 15 10:35:40 server01 sshd[1281]: ERROR: Multiple failed login attempts detected for user admin from 192.168.1.225 - login attempt limit exceeded
+Jan 15 10:35:41 server01 apache2: [Mon Jan 15 10:35:41 2024] [error] [client 192.168.1.226] HIGH: Command injection attempt detected - eval() execution attempted
+Jan 15 10:35:42 server01 nginx: 2024/01/15 10:35:42 [crit] 1234#0: CRITICAL: Path traversal attack detected - directory traversal attempt with ../../../etc/passwd
+Jan 15 10:35:43 server01 apache2: [Mon Jan 15 10:35:43 2024] [error] [client 192.168.1.227] HIGH: CSRF attack detected - CSRF token missing in request
+Jan 15 10:35:44 server01 nginx: 2024/01/15 10:35:44 [alert] 1234#0: CRITICAL: Remote file inclusion (RFI) attempt detected - LFI/RFI attack with remote URL
+Jan 15 10:35:45 server01 sshd[1282]: ERROR: Privilege escalation attempt detected - unauthorized privilege access attempt via sudo exploit
+Jan 15 10:35:46 server01 apache2: [Mon Jan 15 10:35:46 2024] [error] [client 192.168.1.228] HIGH: SSL certificate validation error - certificate error detected
+Jan 15 10:35:47 server01 nginx: 2024/01/15 10:35:47 [crit] 1234#0: CRITICAL: Session hijack detected - session fixation attack detected
+Jan 15 10:35:48 server01 sshd[1283]: ERROR: Account lockout triggered for user admin - account disabled due to repeated login failures
+Jan 15 10:35:49 server01 apache2: [Mon Jan 15 10:35:49 2024] [error] [client 192.168.1.229] HIGH: DoS attack detected - denial of service flooding detected from IP
+Jan 15 10:35:50 server01 nginx: 2024/01/15 10:35:50 [alert] 1234#0: CRITICAL: RCE attempt detected - remote code execution payload in request
+Jan 15 10:35:51 server01 sshd[1284]: ERROR: Token expiration detected - JWT expired session token validation failed
+Jan 15 10:35:52 server01 apache2: [Mon Jan 15 10:35:52 2024] [error] [client 192.168.1.230] HIGH: MFA bypass attempt detected - multi-factor authentication failure
+Jan 15 10:35:53 server01 nginx: 2024/01/15 10:35:53 [alert] 1234#0: CRITICAL: XXE attack detected - XML external entity injection in request
+Jan 15 10:35:54 server01 sshd[1285]: ERROR: SSRF attempt detected - server-side request forgery attack from 192.168.1.231
+Jan 15 10:35:55 server01 apache2: [Mon Jan 15 10:35:55 2024] [error] [client 192.168.1.232] HIGH: IDOR vulnerability detected - insecure direct object reference
+Jan 15 10:35:56 server01 nginx: 2024/01/15 10:35:56 [crit] 1234#0: CRITICAL: OAuth failure detected - OAuth authentication failure
+Jan 15 10:35:57 server01 sshd[1286]: ERROR: SAML failure detected - SAML authentication bind failure
+Jan 15 10:35:58 server01 apache2: [Mon Jan 15 10:35:58 2024] [error] [client 192.168.1.233] HIGH: LDAP bind failure - LDAP authentication bind failed
+Jan 15 10:35:59 server01 nginx: 2024/01/15 10:35:59 [alert] 1234#0: CRITICAL: Certificate pinning failure - certificate chain error detected
+Jan 15 10:36:00 server01 sshd[1287]: ERROR: Password policy violation detected - weak password detected for user admin
+Jan 15 10:36:01 server01 apache2: [Mon Jan 15 10:36:01 2024] [error] [client 192.168.1.234] HIGH: Weak encryption detected - obsolete cipher detected in SSL handshake
+Jan 15 10:36:02 server01 nginx: 2024/01/15 10:36:02 [crit] 1234#0: CRITICAL: Key compromise detected - private key exposed in log file
+Jan 15 10:36:03 server01 sshd[1288]: ERROR: Credential leak detected - secret exposed in error message
+Jan 15 10:36:04 server01 apache2: [Mon Jan 15 10:36:04 2024] [error] [client 192.168.1.235] HIGH: Session replay attack detected - session replay detected
+Jan 15 10:36:05 server01 nginx: 2024/01/15 10:36:05 [alert] 1234#0: CRITICAL: DDoS attack detected - denial of service flooding detected
+Jan 15 10:36:06 server01 sshd[1289]: ERROR: Kerberos failure detected - Kerberos authentication bind failure
+Jan 15 10:36:07 server01 apache2: [Mon Jan 15 10:36:07 2024] [error] [client 192.168.1.236] HIGH: Rate limit exceeded - request rate limit exceeded
+Jan 15 10:36:08 server01 nginx: 2024/01/15 10:36:08 [crit] 1234#0: CRITICAL: XML injection detected - XML external entity injection
+Jan 15 10:36:09 server01 sshd[1290]: ERROR: 2FA bypass detected - 2FA bypass attempt detected
+Jan 15 10:36:10 server01 apache2: [Mon Jan 15 10:36:10 2024] [error] [client 192.168.1.237] HIGH: Password reuse detected - password reuse policy violation
+Jan 15 10:36:11 server01 nginx: 2024/01/15 10:36:11 [alert] 1234#0: CRITICAL: Sudo abuse detected - unauthorized privilege via sudo exploit
+Jan 15 10:36:12 server01 sshd[1291]: ERROR: Account suspended - account disabled due to security violation
+Jan 15 10:36:13 server01 apache2: [Mon Jan 15 10:36:13 2024] [error] [client 192.168.1.238] HIGH: TLS certificate error - TLS certificate validation failed
+Jan 15 10:36:14 server01 nginx: 2024/01/15 10:36:14 [crit] 1234#0: CRITICAL: Weak cipher detected - weak encryption cipher used
+Jan 15 10:36:15 server01 sshd[1292]: ERROR: Privilege escalation attempt - unauthorized privilege access attempt
+Jan 15 10:36:16 server01 apache2: [Mon Jan 15 10:36:16 2024] [error] [client 192.168.1.239] HIGH: SUID exploit detected - privilege escalation via SUID binary
+Jan 15 10:36:17 server01 nginx: 2024/01/15 10:36:17 [alert] 1234#0: CRITICAL: GUID exploit detected - privilege escalation via GUID binary
+Jan 15 10:36:18 server01 mysql: 2024-01-15 10:36:18 1234 [ERROR] Database connection pool exhausted - connection timeout
+Jan 15 10:36:19 server01 apache2: [Mon Jan 15 10:36:19 2024] [error] [client 192.168.1.240] HIGH: DNS resolution failed - DNS failure detected
+Jan 15 10:36:20 server01 nginx: 2024/01/15 10:36:20 [error] 1234#0: HIGH: Packet loss detected - network packet loss exceeded threshold
+Jan 15 10:36:21 server01 sshd[1293]: ERROR: Bandwidth exceeded - network bandwidth utilization exceeded
+Jan 15 10:36:22 server01 apache2: [Mon Jan 15 10:36:22 2024] [error] [client 192.168.1.241] HIGH: Throughput degradation - network throughput below threshold
+Jan 15 10:36:23 server01 nginx: 2024/01/15 10:36:23 [error] 1234#0: HIGH: Gateway unreachable - network gateway timeout
+Jan 15 10:36:24 server01 sshd[1294]: ERROR: Router timeout - network router connection timeout
+Jan 15 10:36:25 server01 apache2: [Mon Jan 15 10:36:25 2024] [error] [client 192.168.1.242] HIGH: Proxy connection failed - proxy gateway timeout
+Jan 15 10:36:26 server01 nginx: 2024/01/15 10:36:26 [error] 1234#0: HIGH: Socket bind failed - port bind error detected
+Jan 15 10:36:27 server01 sshd[1295]: ERROR: Port listen failed - network port listen error
+Jan 15 10:36:28 server01 apache2: [Mon Jan 15 10:36:28 2024] [error] [client 192.168.1.243] HIGH: Service unavailable - service connection refused
+Jan 15 10:36:29 server01 nginx: 2024/01/15 10:36:29 [error] 1234#0: HIGH: Network interface down - network interface eth0 link down
+Jan 15 10:36:30 server01 sshd[1296]: ERROR: Connection pool exhausted - network connection pool full
+Jan 15 10:36:31 server01 apache2: [Mon Jan 15 10:36:31 2024] [error] [client 192.168.1.244] MEDIUM: High CPU usage detected - CPU usage above 90%
+Jan 15 10:36:32 server01 nginx: 2024/01/15 10:36:32 [warn] 1234#0: MEDIUM: High memory usage detected - memory usage above 85%
+Jan 15 10:36:33 server01 sshd[1297]: ERROR: Disk space critical - disk space below 5% threshold
+Jan 15 10:36:34 server01 apache2: [Mon Jan 15 10:36:34 2024] [error] [client 192.168.1.245] MEDIUM: Resource exhaustion detected - system resource capacity exceeded
+Jan 15 10:36:35 server01 nginx: 2024/01/15 10:36:35 [warn] 1234#0: MEDIUM: Performance degradation - application response latency high
+Jan 15 10:36:36 server01 sshd[1298]: ERROR: Queue backlog detected - request queue backlog exceeded
+Jan 15 10:36:37 server01 apache2: [Mon Jan 15 10:36:37 2024] [error] [client 192.168.1.246] MEDIUM: Bottleneck detected - system bottleneck in database queries
+Jan 15 10:36:38 server01 nginx: 2024/01/15 10:36:38 [warn] 1234#0: MEDIUM: Throttle activated - rate throttling enabled due to high load
+Jan 15 10:36:39 server01 sshd[1299]: ERROR: Utilization exceeded - CPU utilization above critical threshold
+Jan 15 10:36:40 server01 apache2: [Mon Jan 15 10:36:40 2024] [error] [client 192.168.1.247] MEDIUM: Slow response detected - API response time exceeded 5 seconds
+Jan 15 10:36:41 server01 nginx: 2024/01/15 10:36:41 [warn] 1234#0: MEDIUM: Capacity exceeded - system capacity utilization at 95%
+Jan 15 10:36:42 server01 sshd[1300]: ERROR: Disk full warning - disk space utilization at 92%
+Jan 15 10:36:43 server01 apache2: [Mon Jan 15 10:36:43 2024] [error] [client 192.168.1.248] MEDIUM: Load average high - system load average above 10.0
+Jan 15 10:36:44 server01 nginx: 2024/01/15 10:36:44 [warn] 1234#0: MEDIUM: System load critical - system load critically high
+Jan 15 10:36:45 server01 sshd[1301]: ERROR: Resource capacity exceeded - system resource capacity full
+Jan 15 10:36:46 server01 apache2: [Mon Jan 15 10:36:46 2024] [error] [client 192.168.1.249] HIGH: Database query timeout - query execution timeout exceeded
+Jan 15 10:36:47 server01 nginx: 2024/01/15 10:36:47 [error] 1234#0: HIGH: Table corrupted - database table marked as crashed
+Jan 15 10:36:48 server01 mysql: 2024-01-15 10:36:48 1234 [ERROR] Connection pool timeout - database connection pool exhausted
+Jan 15 10:36:49 server01 apache2: [Mon Jan 15 10:36:49 2024] [error] [client 192.168.1.250] HIGH: SQL query failed - database query execution failed
+Jan 15 10:36:50 server01 nginx: 2024/01/15 10:36:50 [error] 1234#0: HIGH: Database unavailable - database connection refused
+Jan 15 10:36:51 server01 mysql: 2024-01-15 10:36:51 1234 [ERROR] Deadlock detected - database deadlock in transaction
+Jan 15 10:36:52 server01 apache2: [Mon Jan 15 10:36:52 2024] [error] [client 192.168.1.251] HIGH: Lock timeout - database lock timeout exceeded
+Jan 15 10:36:53 server01 nginx: 2024/01/15 10:36:53 [error] 1234#0: HIGH: Transaction rollback - database transaction rollback required
+Jan 15 10:36:54 server01 mysql: 2024-01-15 10:36:54 1234 [ERROR] Table lock wait - database table lock wait timeout
+Jan 15 10:36:55 server01 apache2: [Mon Jan 15 10:36:55 2024] [error] [client 192.168.1.252] HIGH: Invalid query - database query syntax error
+Jan 15 10:36:56 server01 nginx: 2024/01/15 10:36:56 [error] 1234#0: HIGH: Connection pool exhausted - database connection pool full
+Jan 15 10:36:57 server01 mysql: 2024-01-15 10:36:57 1234 [ERROR] Index corrupted - database index corruption detected
+Jan 15 10:36:58 server01 apache2: [Mon Jan 15 10:36:58 2024] [error] [client 192.168.1.253] HIGH: Database table missing - table not found in database
+Jan 15 10:36:59 server01 nginx: 2024/01/15 10:36:59 [error] 1234#0: HIGH: Storage engine error - database storage engine failure
+Jan 15 10:37:00 server01 mysql: 2024-01-15 10:37:00 1234 [ERROR] Binary log corrupted - database binary log corruption detected
+Jan 15 10:37:01 server01 apache2: [Mon Jan 15 10:37:01 2024] [error] [client 192.168.1.254] HIGH: Replication lag - database replication lag exceeded threshold
+Jan 15 10:37:02 server01 nginx: 2024/01/15 10:37:02 [error] 1234#0: HIGH: Master-slave sync failed - database replication sync failure
+Jan 15 10:37:03 server01 mysql: 2024-01-15 10:37:03 1234 [ERROR] Backup failed - database backup operation failed
+Jan 15 10:37:04 server01 apache2: [Mon Jan 15 10:37:04 2024] [error] [client 192.168.1.255] HIGH: Restore failed - database restore operation failed
+Jan 15 10:37:05 server01 nginx: 2024/01/15 10:37:05 [error] 1234#0: HIGH: Database disk full - database disk space exhausted
+Jan 15 10:37:06 server01 sshd[1302]: ERROR: Failed to bind to port 22 - socket bind permission denied
+Jan 15 10:37:07 server01 apache2: [Mon Jan 15 10:37:07 2024] [error] [client 192.168.1.1] HIGH: Invalid HTTP method - invalid HTTP request method detected
+Jan 15 10:37:08 server01 nginx: 2024/01/15 10:37:08 [error] 1234#0: HIGH: Request size exceeded - HTTP request body size exceeded limit
+Jan 15 10:37:09 server01 sshd[1303]: ERROR: Host key verification failed - SSH host key mismatch detected
+Jan 15 10:37:10 server01 apache2: [Mon Jan 15 10:37:10 2024] [error] [client 192.168.1.2] HIGH: Invalid request header - malformed HTTP request header
+Jan 15 10:37:11 server01 nginx: 2024/01/15 10:37:11 [error] 1234#0: HIGH: Upstream timeout - upstream server response timeout
+Jan 15 10:37:12 server01 sshd[1304]: ERROR: Connection reset by peer - SSH connection reset unexpectedly
+Jan 15 10:37:13 server01 apache2: [Mon Jan 15 10:37:13 2024] [error] [client 192.168.1.3] HIGH: Request URI too long - HTTP request URI exceeds maximum length
+Jan 15 10:37:14 server01 nginx: 2024/01/15 10:37:14 [error] 1234#0: HIGH: Upstream connection refused - upstream server connection refused
+Jan 15 10:37:15 server01 sshd[1305]: ERROR: Protocol mismatch - SSH protocol version mismatch
+Jan 15 10:37:16 server01 apache2: [Mon Jan 15 10:37:16 2024] [error] [client 192.168.1.4] HIGH: Invalid response code - HTTP response code 500 error
+Jan 15 10:37:17 server01 nginx: 2024/01/15 10:37:17 [error] 1234#0: HIGH: Upstream invalid response - upstream server invalid HTTP response
+Jan 15 10:37:18 server01 sshd[1306]: ERROR: Key exchange failed - SSH key exchange protocol failure
+Jan 15 10:37:19 server01 apache2: [Mon Jan 15 10:37:19 2024] [error] [client 192.168.1.5] HIGH: Content encoding error - HTTP content encoding unsupported
+Jan 15 10:37:20 server01 nginx: 2024/01/15 10:37:20 [error] 1234#0: HIGH: Chunked encoding error - HTTP chunked encoding failure
+Jan 15 10:37:21 server01 sshd[1307]: ERROR: Compression algorithm error - SSH compression algorithm mismatch
+Jan 15 10:37:22 server01 apache2: [Mon Jan 15 10:37:22 2024] [error] [client 192.168.1.6] HIGH: SSL handshake failed - SSL/TLS handshake failure
+Jan 15 10:37:23 server01 nginx: 2024/01/15 10:37:23 [error] 1234#0: HIGH: Certificate chain invalid - SSL certificate chain validation failed
+Jan 15 10:37:24 server01 sshd[1308]: ERROR: Cipher suite mismatch - SSH cipher suite not supported
+Jan 15 10:37:25 server01 apache2: [Mon Jan 15 10:37:25 2024] [error] [client 192.168.1.7] HIGH: Protocol version mismatch - TLS protocol version unsupported
+Jan 15 10:37:26 server01 nginx: 2024/01/15 10:37:26 [error] 1234#0: HIGH: Certificate expired - SSL certificate expiration detected
+Jan 15 10:37:27 server01 sshd[1309]: ERROR: MAC algorithm error - SSH MAC algorithm not supported
+Jan 15 10:37:28 server01 apache2: [Mon Jan 15 10:37:28 2024] [error] [client 192.168.1.8] HIGH: Certificate revoked - SSL certificate revocation detected
+Jan 15 10:37:29 server01 nginx: 2024/01/15 10:37:29 [error] 1234#0: HIGH: Self-signed certificate - SSL self-signed certificate detected
+Jan 15 10:37:30 server01 sshd[1310]: ERROR: Host key changed - SSH host key changed warning
+Jan 15 10:37:31 server01 apache2: [Mon Jan 15 10:37:31 2024] [error] [client 192.168.1.9] HIGH: Certificate authority invalid - SSL CA certificate invalid
+Jan 15 10:37:32 server01 nginx: 2024/01/15 10:37:32 [error] 1234#0: HIGH: Certificate subject mismatch - SSL certificate subject mismatch
+Jan 15 10:37:33 server01 sshd[1311]: ERROR: Encryption algorithm error - SSH encryption algorithm mismatch
+Jan 15 10:37:34 server01 apache2: [Mon Jan 15 10:37:34 2024] [error] [client 192.168.1.10] HIGH: Weak SSL cipher - weak SSL/TLS cipher detected
+Jan 15 10:37:35 server01 nginx: 2024/01/15 10:37:35 [error] 1234#0: HIGH: Insecure cipher suite - insecure TLS cipher suite detected
+Jan 15 10:37:36 server01 sshd[1312]: ERROR: Diffie-Hellman key exchange failed - SSH key exchange protocol error
+Jan 15 10:37:37 server01 apache2: [Mon Jan 15 10:37:37 2024] [error] [client 192.168.1.11] HIGH: Perfect forward secrecy violated - PFS cipher suite not used
+Jan 15 10:37:38 server01 nginx: 2024/01/15 10:37:38 [error] 1234#0: HIGH: RC4 cipher detected - insecure RC4 cipher detected
+Jan 15 10:37:39 server01 sshd[1313]: ERROR: RSA key size insufficient - SSH RSA key size below 2048 bits
+Jan 15 10:37:40 server01 apache2: [Mon Jan 15 10:37:40 2024] [error] [client 192.168.1.12] HIGH: MD5 hash detected - insecure MD5 hash algorithm detected
+Jan 15 10:37:41 server01 nginx: 2024/01/15 10:37:41 [error] 1234#0: HIGH: SHA1 hash detected - deprecated SHA1 hash algorithm detected
+Jan 15 10:37:42 server01 sshd[1314]: ERROR: ECDSA key invalid - SSH ECDSA key validation failed
+Jan 15 10:37:43 server01 apache2: [Mon Jan 15 10:37:43 2024] [error] [client 192.168.1.13] HIGH: Certificate transparency missing - CT logs not found
+Jan 15 10:37:44 server01 nginx: 2024/01/15 10:37:44 [error] 1234#0: HIGH: OCSP stapling failed - OCSP stapling validation failed
+Jan 15 10:37:45 server01 sshd[1315]: ERROR: Ed25519 key error - SSH Ed25519 key validation failed
+Jan 15 10:37:46 server01 apache2: [Mon Jan 15 10:37:46 2024] [error] [client 192.168.1.14] HIGH: HSTS header missing - HTTP Strict Transport Security header missing
+Jan 15 10:37:47 server01 nginx: 2024/01/15 10:37:47 [error] 1234#0: HIGH: CSP header invalid - Content Security Policy header validation failed
+Jan 15 10:37:48 server01 sshd[1316]: ERROR: Public key authentication failed - SSH public key authentication rejected
+Jan 15 10:37:49 server01 apache2: [Mon Jan 15 10:37:49 2024] [error] [client 192.168.1.15] HIGH: X-Frame-Options missing - clickjacking protection header missing
+Jan 15 10:37:50 server01 nginx: 2024/01/15 10:37:50 [error] 1234#0: HIGH: X-Content-Type-Options missing - MIME type sniffing protection header missing
+Jan 15 10:37:51 server01 sshd[1317]: ERROR: Keyboard interactive authentication failed - SSH keyboard interactive auth failed
+Jan 15 10:37:52 server01 apache2: [Mon Jan 15 10:37:52 2024] [error] [client 192.168.1.16] HIGH: Referrer-Policy missing - referrer policy header missing
+Jan 15 10:37:53 server01 nginx: 2024/01/15 10:37:53 [error] 1234#0: HIGH: Permissions-Policy missing - permissions policy header missing
+Jan 15 10:37:54 server01 sshd[1318]: ERROR: GSSAPI authentication failed - SSH GSSAPI authentication failure
+Jan 15 10:37:55 server01 apache2: [Mon Jan 15 10:37:55 2024] [error] [client 192.168.1.17] HIGH: Feature-Policy missing - feature policy header missing
+Jan 15 10:37:56 server01 nginx: 2024/01/15 10:37:56 [error] 1234#0: HIGH: Expect-CT header missing - Certificate Transparency header missing
+Jan 15 10:37:57 server01 sshd[1319]: ERROR: Hostbased authentication failed - SSH hostbased authentication rejected
+Jan 15 10:37:58 server01 apache2: [Mon Jan 15 10:37:58 2024] [error] [client 192.168.1.18] HIGH: Server header exposed - sensitive server information disclosure
+Jan 15 10:37:59 server01 nginx: 2024/01/15 10:37:59 [error] 1234#0: HIGH: X-Powered-By header exposed - framework information disclosure
+Jan 15 10:38:00 server01 sshd[1320]: ERROR: None authentication failed - SSH None authentication not allowed
+Jan 15 10:38:01 server01 apache2: [Mon Jan 15 10:38:01 2024] [error] [client 192.168.1.19] HIGH: Debug information exposed - debug information in error message
+Jan 15 10:38:02 server01 nginx: 2024/01/15 10:38:02 [error] 1234#0: HIGH: Stack trace exposed - application stack trace in response
+Jan 15 10:38:03 server01 sshd[1321]: ERROR: Challenge-response authentication failed - SSH challenge-response auth failed
+Jan 15 10:38:04 server01 apache2: [Mon Jan 15 10:38:04 2024] [error] [client 192.168.1.20] HIGH: Database error exposed - database error message in response
+Jan 15 10:38:05 server01 nginx: 2024/01/15 10:38:05 [error] 1234#0: HIGH: Path information exposed - file system path in error message
+Jan 15 10:38:06 server01 sshd[1322]: ERROR: Unknown authentication method - SSH authentication method not supported
+Jan 15 10:38:07 server01 apache2: [Mon Jan 15 10:38:07 2024] [error] [client 192.168.1.21] HIGH: Version information exposed - application version in header
+Jan 15 10:38:08 server01 nginx: 2024/01/15 10:38:08 [error] 1234#0: HIGH: Internal IP exposed - internal IP address in error message
+Jan 15 10:38:09 server01 sshd[1323]: ERROR: Authentication method disabled - SSH authentication method disabled
+Jan 15 10:38:10 server01 apache2: [Mon Jan 15 10:38:10 2024] [error] [client 192.168.1.22] HIGH: Config file exposed - configuration file path in error
+Jan 15 10:38:11 server01 nginx: 2024/01/15 10:38:11 [error] 1234#0: HIGH: Source code exposed - source code path in error message
+Jan 15 10:38:12 server01 sshd[1324]: ERROR: Max authentication attempts exceeded - SSH max auth attempts reached
+Jan 15 10:38:13 server01 apache2: [Mon Jan 15 10:38:13 2024] [error] [client 192.168.1.23] HIGH: Backup file exposed - backup file accessible via web
+Jan 15 10:38:14 server01 nginx: 2024/01/15 10:38:14 [error] 1234#0: HIGH: Temporary file exposed - temporary file accessible via web
+Jan 15 10:38:15 server01 sshd[1325]: ERROR: Login grace time exceeded - SSH login grace time expired
+Jan 15 10:38:16 server01 apache2: [Mon Jan 15 10:38:16 2024] [error] [client 192.168.1.24] HIGH: Hidden file exposed - hidden file accessible via web
+Jan 15 10:38:17 server01 nginx: 2024/01/15 10:38:17 [error] 1234#0: HIGH: Log file exposed - log file accessible via web
+Jan 15 10:38:18 server01 sshd[1326]: ERROR: Connection limit exceeded - SSH connection limit reached
+Jan 15 10:38:19 server01 apache2: [Mon Jan 15 10:38:19 2024] [error] [client 192.168.1.25] HIGH: Config directory exposed - configuration directory listing enabled
+Jan 15 10:38:20 server01 nginx: 2024/01/15 10:38:20 [error] 1234#0: HIGH: Admin panel exposed - admin panel accessible without authentication
+Jan 15 10:38:21 server01 sshd[1327]: ERROR: Max sessions exceeded - SSH max sessions limit reached
+Jan 15 10:38:22 server01 apache2: [Mon Jan 15 10:38:22 2024] [error] [client 192.168.1.26] HIGH: Default credentials detected - default username/password in use
+Jan 15 10:38:23 server01 nginx: 2024/01/15 10:38:23 [error] 1234#0: HIGH: Test endpoint exposed - test/debug endpoint accessible
+Jan 15 10:38:24 server01 sshd[1328]: ERROR: Client alive interval timeout - SSH client alive timeout
+Jan 15 10:38:25 server01 apache2: [Mon Jan 15 10:38:25 2024] [error] [client 192.168.1.27] HIGH: API key exposed - API key in URL parameter
+Jan 15 10:38:26 server01 nginx: 2024/01/15 10:38:26 [error] 1234#0: HIGH: Access token exposed - access token in URL parameter
+Jan 15 10:38:27 server01 sshd[1329]: ERROR: Server alive interval timeout - SSH server alive timeout
+Jan 15 10:38:28 server01 apache2: [Mon Jan 15 10:38:28 2024] [error] [client 192.168.1.28] HIGH: Password in URL - password visible in URL parameter
+Jan 15 10:38:29 server01 nginx: 2024/01/15 10:38:29 [error] 1234#0: HIGH: Credit card in log - credit card number in log file
+Jan 15 10:38:30 server01 sshd[1330]: ERROR: Rekey timeout - SSH rekey timeout exceeded
+Jan 15 10:38:31 server01 apache2: [Mon Jan 15 10:38:31 2024] [error] [client 192.168.1.29] HIGH: SSN in log - social security number in log file
+Jan 15 10:38:32 server01 nginx: 2024/01/15 10:38:32 [error] 1234#0: HIGH: Email in log - email address in error message
+Jan 15 10:38:33 server01 sshd[1331]: ERROR: Rekey limit exceeded - SSH rekey limit reached
+Jan 15 10:38:34 server01 apache2: [Mon Jan 15 10:38:34 2024] [error] [client 192.168.1.30] HIGH: Phone number in log - phone number in log file
+Jan 15 10:38:35 server01 nginx: 2024/01/15 10:38:35 [error] 1234#0: HIGH: API secret in log - API secret key in log file

@@ -6,13 +6,10 @@ Web_Scans/
 Network_Scans/
 error_reports/
 ip_targets.txt
-logs.txt
-
-
 
 # Lint/format caches
 .ruff_cache/
 .pytest_cache/
 __pycache__/
-
+logcat.txt
 

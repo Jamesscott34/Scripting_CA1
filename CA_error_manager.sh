@@ -12,12 +12,6 @@ set -euo pipefail
 # and structured reporting for system logs. It supports both manual file
 # processing and automated system monitoring workflows.
 #
-# Requirements Met:
-# • Produce an automated output file that captures and handles error entries found in logs.txt
-# • Accept a logs.txt input and detect malformed or invalid entry patterns
-# • Chain SSH transfer and Python consumer with concrete examples
-# • Include clear documentation and comments within the script
-#
 # Usage Examples:
 #   ./CA_error_manager.sh logs.txt                    # Process specific file
 #   ./CA_error_manager.sh --ssh user@host:/path/log   # Remote log processing
@@ -158,7 +152,7 @@ EOF
 log_message_with_timestamp() {
     local message_content="$1"
     local severity_level="${2:-INFO}"
-    local current_timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    local current_timestamp=$(date '+%d-%m-%y %H:%M')
     local color_code=""
     
     # Assign color based on severity
@@ -221,10 +215,12 @@ create_output_directory_structure() {
     fi
     
     # Create subdirectories for different output types with proper permissions
-    mkdir -p "$base_directory"/{json,text,csv,archives} 2>/dev/null
+    mkdir -p "$base_directory"/{json,text,csv,archives,comparisons} 2>/dev/null
+    # Create advanced subdirectory inside json
+    mkdir -p "$base_directory/json/advanced" 2>/dev/null
     
     # Ensure the directories exist and are writable with secure permissions
-    for subdir in json text csv archives; do
+    for subdir in json text csv archives comparisons; do
         if [[ ! -d "$base_directory/$subdir" ]]; then
             mkdir -p "$base_directory/$subdir" || {
                 log_message_with_timestamp "Failed to create subdirectory: $base_directory/$subdir" "$SEVERITY_CRITICAL"
@@ -303,11 +299,11 @@ extract_error_patterns_from_log() {
     local connectivity_issues_file="$TEMPORARY_DIRECTORY/connectivity_issues.txt"
     
     # Initialize temporary files
-    > "$error_patterns_file"
-    > "$malformed_entries_file"
-    > "$security_issues_file"
-    > "$performance_issues_file"
-    > "$connectivity_issues_file"
+    true > "$error_patterns_file"
+    true > "$malformed_entries_file"
+    true > "$security_issues_file"
+    true > "$performance_issues_file"
+    true > "$connectivity_issues_file"
     
     log_message_with_timestamp "Extracting comprehensive error patterns for format: $log_format" "$SEVERITY_INFO"
     
@@ -339,6 +335,37 @@ extract_error_patterns_from_log() {
         "brute force|Brute Force|BRUTE FORCE|dictionary|Dictionary|DICTIONARY"
     )
     
+    # Advanced security threat patterns
+    local advanced_security_patterns=(
+        "sql injection|SQL Injection|SQL_INJECTION|xss|XSS|cross-site"
+        "csrf|CSRF|csrf token|cross-site request forgery"
+        "command injection|Command Injection|COMMAND_INJECTION|eval|exec|system"
+        "path traversal|Path Traversal|directory traversal|../"
+        "file inclusion|File Inclusion|remote file inclusion|LFI|RFI"
+        "privilege escalation|Privilege Escalation|sudo exploit|suid|guid"
+        "certificate|Certificate|CERT|ssl|SSL|tls|TLS|cert validation|certificate error"
+        "cipher|Cipher|weak cipher|weak encryption|obsolete cipher"
+        "key compromise|Key Compromise|private key|secret exposed|credential leak"
+        "session hijack|Session Hijack|session fixation|session replay"
+        "dos|DoS|DDoS|denial of service|flooding|rate limit exceeded"
+        "rce|RCE|remote code execution|code execution"
+        "xxe|XXE|XML external entity|xml injection"
+        "ssrf|SSRF|server-side request forgery"
+        "idor|IDOR|insecure direct object reference"
+    )
+    
+    # Authentication and access control security patterns
+    local auth_security_patterns=(
+        "multiple failed login|repeated login attempt|login attempt limit"
+        "password policy violation|weak password|password reuse"
+        "account lockout|account disabled|account suspended"
+        "privilege escalation attempt|unauthorized privilege|sudo abuse"
+        "token expiration|token invalid|jwt expired|session expired"
+        "mfa bypass|2fa bypass|multi-factor authentication failure"
+        "oauth failure|saml failure|ldap bind failure|kerberos failure"
+        "certificate pinning failure|certificate chain error"
+    )
+    
     # Performance-specific patterns
     local performance_patterns=(
         "slow|Slow|SLOW|performance|Performance|PERFORMANCE|latency|Latency|LATENCY"
@@ -363,83 +390,96 @@ extract_error_patterns_from_log() {
     )
     
     # Combine all patterns for comprehensive error detection
-    local combined_error_pattern=$(IFS='|'; echo "${universal_error_patterns[*]}")
-    local combined_security_pattern=$(IFS='|'; echo "${security_patterns[*]}")
-    local combined_performance_pattern=$(IFS='|'; echo "${performance_patterns[*]}")
-    local combined_connectivity_pattern=$(IFS='|'; echo "${connectivity_patterns[*]}")
+    local combined_error_pattern
+    combined_error_pattern=$(IFS='|'; echo "${universal_error_patterns[*]}")
+    # Combine all security patterns (base + advanced + auth)
+    local base_security
+    base_security=$(IFS='|'; echo "${security_patterns[*]}")
+    local advanced_security
+    advanced_security=$(IFS='|'; echo "${advanced_security_patterns[*]}")
+    local auth_security
+    auth_security=$(IFS='|'; echo "${auth_security_patterns[*]}")
+    local combined_security_pattern="${base_security}|${advanced_security}|${auth_security}"
+    local combined_performance_pattern
+    combined_performance_pattern=$(IFS='|'; echo "${performance_patterns[*]}")
+    local combined_connectivity_pattern
+    combined_connectivity_pattern=$(IFS='|'; echo "${connectivity_patterns[*]}")
     
     case "$log_format" in
         "syslog")
-            # Comprehensive syslog error patterns
-            grep -E "($combined_error_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
-            grep -E "($combined_security_pattern)" "$file_path" > "$security_issues_file" 2>/dev/null || true
-            grep -E "($combined_performance_pattern)" "$file_path" > "$performance_issues_file" 2>/dev/null || true
-            grep -E "($combined_connectivity_pattern)" "$file_path" > "$connectivity_issues_file" 2>/dev/null || true
+            # Comprehensive syslog error patterns (with line numbers)
+            grep -nE "($combined_error_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
+            grep -nE "($combined_security_pattern)" "$file_path" > "$security_issues_file" 2>/dev/null || true
+            grep -nE "($combined_performance_pattern)" "$file_path" > "$performance_issues_file" 2>/dev/null || true
+            grep -nE "($combined_connectivity_pattern)" "$file_path" > "$connectivity_issues_file" 2>/dev/null || true
             
             # Malformed syslog entries (missing timestamp, invalid format, corrupted data)
             grep -vE "^[A-Za-z]{3}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}" "$file_path" | head -n 100 > "$malformed_entries_file" 2>/dev/null || true
             ;;
         "auth")
-            # Comprehensive authentication error patterns
-            grep -E "($combined_error_pattern|$combined_security_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
-            grep -E "(authentication|Authentication|AUTHENTICATION|login|Login|LOGIN|password|Password|PASSWORD)" "$file_path" > "$security_issues_file" 2>/dev/null || true
+            # Comprehensive authentication error patterns (with line numbers)
+            grep -nE "($combined_error_pattern|$combined_security_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
+            # Combine auth-specific patterns with general security patterns
+            local auth_specific="authentication|Authentication|AUTHENTICATION|login|Login|LOGIN|password|Password|PASSWORD"
+            local combined_auth_security="${combined_security_pattern}|${auth_specific}"
+            grep -nE "($combined_auth_security)" "$file_path" > "$security_issues_file" 2>/dev/null || true
             
             # Malformed auth entries
             grep -vE "^[A-Za-z]{3}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}.*(sshd|sudo|su|login|pam|auth)" "$file_path" | head -n 100 > "$malformed_entries_file" 2>/dev/null || true
             ;;
         "apache_error")
-            # Comprehensive Apache error patterns
-            grep -E "($combined_error_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
-            grep -E "(emerg|alert|crit|error|warn|notice|info|debug)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
-            grep -E "($combined_security_pattern)" "$file_path" > "$security_issues_file" 2>/dev/null || true
-            grep -E "($combined_performance_pattern)" "$file_path" > "$performance_issues_file" 2>/dev/null || true
+            # Comprehensive Apache error patterns (with line numbers)
+            grep -nE "($combined_error_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
+            grep -nE "(emerg|alert|crit|error|warn|notice|info|debug)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
+            grep -nE "($combined_security_pattern)" "$file_path" > "$security_issues_file" 2>/dev/null || true
+            grep -nE "($combined_performance_pattern)" "$file_path" > "$performance_issues_file" 2>/dev/null || true
             
             # Malformed Apache error entries
             grep -vE "^\[.*\]\s+\[.*\]\s+\[.*\]" "$file_path" | head -n 100 > "$malformed_entries_file" 2>/dev/null || true
             ;;
         "nginx")
-            # Comprehensive Nginx error patterns
-            grep -E "($combined_error_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
-            grep -E "(emerg|alert|crit|error|warn|notice|info|debug)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
-            grep -E "($combined_security_pattern)" "$file_path" > "$security_issues_file" 2>/dev/null || true
-            grep -E "($combined_performance_pattern)" "$file_path" > "$performance_issues_file" 2>/dev/null || true
+            # Comprehensive Nginx error patterns (with line numbers)
+            grep -nE "($combined_error_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
+            grep -nE "(emerg|alert|crit|error|warn|notice|info|debug)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
+            grep -nE "($combined_security_pattern)" "$file_path" > "$security_issues_file" 2>/dev/null || true
+            grep -nE "($combined_performance_pattern)" "$file_path" > "$performance_issues_file" 2>/dev/null || true
             
             # Malformed Nginx entries
             grep -vE '^\d+\.\d+\.\d+\.\d+\s+.*\s+\[.*\]\s+".*"' "$file_path" | head -n 100 > "$malformed_entries_file" 2>/dev/null || true
             ;;
         "mysql")
-            # Comprehensive MySQL error patterns
-            grep -E "($combined_error_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
-            grep -E "(error|Error|ERROR|warning|Warning|WARNING|failed|Failed|FAILED)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
-            grep -E "(deadlock|Deadlock|DEADLOCK|lock|Lock|LOCK|transaction|Transaction|TRANSACTION)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
+            # Comprehensive MySQL error patterns (with line numbers)
+            grep -nE "($combined_error_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
+            grep -nE "(error|Error|ERROR|warning|Warning|WARNING|failed|Failed|FAILED)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
+            grep -nE "(deadlock|Deadlock|DEADLOCK|lock|Lock|LOCK|transaction|Transaction|TRANSACTION)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
             
             # Malformed MySQL entries
             grep -vE '^\d{6}\s+\d{1,2}:\d{2}:\d{2}' "$file_path" | head -n 100 > "$malformed_entries_file" 2>/dev/null || true
             ;;
         "kernel")
-            # Comprehensive kernel error patterns
-            grep -E "($combined_error_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
-            grep -E "(panic|Panic|PANIC|oops|Oops|OOPS|segfault|Segfault|SEGFAULT)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
-            grep -E "(hardware|Hardware|HARDWARE|driver|Driver|DRIVER|firmware|Firmware|FIRMWARE)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
+            # Comprehensive kernel error patterns (with line numbers)
+            grep -nE "($combined_error_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
+            grep -nE "(panic|Panic|PANIC|oops|Oops|OOPS|segfault|Segfault|SEGFAULT)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
+            grep -nE "(hardware|Hardware|HARDWARE|driver|Driver|DRIVER|firmware|Firmware|FIRMWARE)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
             
             # Malformed kernel entries
             grep -vE "^[A-Za-z]{3}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}.*kernel" "$file_path" | head -n 100 > "$malformed_entries_file" 2>/dev/null || true
             ;;
         "systemd")
-            # Comprehensive systemd error patterns
-            grep -E "($combined_error_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
-            grep -E "(failed|Failed|FAILED|timeout|Timeout|TIMEOUT|dependency|Dependency|DEPENDENCY)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
-            grep -E "(service|Service|SERVICE|unit|Unit|UNIT|daemon|Daemon|DAEMON)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
+            # Comprehensive systemd error patterns (with line numbers)
+            grep -nE "($combined_error_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
+            grep -nE "(failed|Failed|FAILED|timeout|Timeout|TIMEOUT|dependency|Dependency|DEPENDENCY)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
+            grep -nE "(service|Service|SERVICE|unit|Unit|UNIT|daemon|Daemon|DAEMON)" "$file_path" >> "$error_patterns_file" 2>/dev/null || true
             
             # Malformed systemd entries
             grep -vE "^[A-Za-z]{3}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}.*systemd" "$file_path" | head -n 100 > "$malformed_entries_file" 2>/dev/null || true
             ;;
         *)
-            # Generic comprehensive error patterns for custom formats
-            grep -E "($combined_error_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
-            grep -E "($combined_security_pattern)" "$file_path" > "$security_issues_file" 2>/dev/null || true
-            grep -E "($combined_performance_pattern)" "$file_path" > "$performance_issues_file" 2>/dev/null || true
-            grep -E "($combined_connectivity_pattern)" "$file_path" > "$connectivity_issues_file" 2>/dev/null || true
+            # Generic comprehensive error patterns for custom formats (with line numbers)
+            grep -nE "($combined_error_pattern)" "$file_path" > "$error_patterns_file" 2>/dev/null || true
+            grep -nE "($combined_security_pattern)" "$file_path" > "$security_issues_file" 2>/dev/null || true
+            grep -nE "($combined_performance_pattern)" "$file_path" > "$performance_issues_file" 2>/dev/null || true
+            grep -nE "($combined_connectivity_pattern)" "$file_path" > "$connectivity_issues_file" 2>/dev/null || true
             
             # Generic malformed entry detection (lines that don't match common patterns)
             grep -vE "(^[A-Za-z]{3}\s+\d{1,2}\s+\d{2}:\d{2}:\d{2}|^\d+\.\d+\.\d+\.\d+|^\[.*\]|^\d{6}\s+\d{1,2}:\d{2}:\d{2}|^[0-9]{4}-[0-9]{2}-[0-9]{2})" "$file_path" | head -n 100 > "$malformed_entries_file" 2>/dev/null || true
@@ -481,14 +521,17 @@ EOF
     local line_number=0
     while IFS= read -r line; do
         ((line_number++))
-        local severity=$(classify_error_severity "$line")
+        local severity
+        severity=$(classify_error_severity "$line")
         local category="error"
         
         # Escape CSV special characters
-        local escaped_line=$(echo "$line" | sed 's/"/""/g' | tr -d '\n\r')
+        local escaped_line
+        escaped_line=$(echo "$line" | sed 's/"/""/g' | tr -d '\n\r')
         
         # Add timestamp if available
-        local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+        local timestamp
+        timestamp=$(date +"%Y-%m-%d %H:%M:%S")
         
         cat >> "$output_file" << EOF
 $line_number,"$severity","$category","$escaped_line","$timestamp","$source_file","$log_format"
@@ -498,9 +541,12 @@ EOF
     # Add malformed entries to CSV
     while IFS= read -r line; do
         ((line_number++))
-        local issue_type=$(classify_malformed_entry "$line" "$log_format")
-        local escaped_line=$(echo "$line" | sed 's/"/""/g' | tr -d '\n\r')
-        local timestamp=$(date +"%Y-%m-%d %H:%M:%S")
+        local issue_type
+        issue_type=$(classify_malformed_entry "$line" "$log_format")
+        local escaped_line
+        escaped_line=$(echo "$line" | sed 's/"/""/g' | tr -d '\n\r')
+        local timestamp
+        timestamp=$(date +"%Y-%m-%d %H:%M:%S")
         
         cat >> "$output_file" << EOF
 $line_number,"MALFORMED","$issue_type","$escaped_line","$timestamp","$source_file","$log_format"
@@ -515,6 +561,196 @@ EOF
     else
         log_message_with_timestamp "Failed to generate CSV report: $output_file" "$SEVERITY_HIGH"
         return 1
+    fi
+}
+
+
+################################################################################
+# Function: archive_old_reports
+# Description: Archives old reports to the archives folder (JSON, CSV, and text files older than specified days)
+# Parameters: $1 - Output directory, $2 - Days to keep (default: 30)
+# Returns: None
+################################################################################
+archive_old_reports() {
+    local output_dir="$1"
+    local days_to_keep="${2:-30}"
+    local archives_dir="$output_dir/archives"
+    local archive_date
+    archive_date=$(date '+%d-%m-%y')
+    
+    # Create archives directory if it doesn't exist
+    mkdir -p "$archives_dir" 2>/dev/null || return 1
+    
+    log_message_with_timestamp "Archiving reports older than $days_to_keep days..." "$SEVERITY_INFO"
+    
+    # Archive old JSON files
+    find "$output_dir/json" -maxdepth 1 -type f -name "*.json" -mtime +$days_to_keep 2>/dev/null | while read -r file; do
+        if [[ -f "$file" ]]; then
+            local filename
+            filename=$(basename "$file")
+            local archived_file="$archives_dir/${archive_date}_${filename}"
+            mv "$file" "$archived_file" 2>/dev/null && chmod 644 "$archived_file"
+            log_message_with_timestamp "Archived JSON: $filename" "$SEVERITY_INFO"
+        fi
+    done
+    
+    # Archive old CSV files
+    find "$output_dir/csv" -maxdepth 1 -type f -name "*.csv" -mtime +$days_to_keep 2>/dev/null | while read -r file; do
+        if [[ -f "$file" ]]; then
+            local filename
+            filename=$(basename "$file")
+            local archived_file="$archives_dir/${archive_date}_${filename}"
+            mv "$file" "$archived_file" 2>/dev/null && chmod 644 "$archived_file"
+            log_message_with_timestamp "Archived CSV: $filename" "$SEVERITY_INFO"
+        fi
+    done
+    
+    # Archive old text files (alerts summaries)
+    find "$output_dir/text" -maxdepth 1 -type f -name "*.txt" -mtime +$days_to_keep 2>/dev/null | while read -r file; do
+        if [[ -f "$file" ]]; then
+            local filename
+            filename=$(basename "$file")
+            local archived_file="$archives_dir/${archive_date}_${filename}"
+            mv "$file" "$archived_file" 2>/dev/null && chmod 644 "$archived_file"
+            log_message_with_timestamp "Archived text: $filename" "$SEVERITY_INFO"
+        fi
+    done
+    
+    log_message_with_timestamp "Archive operation completed. Old reports moved to: $archives_dir" "$SEVERITY_INFO"
+}
+
+################################################################################
+# Function: archive_existing_reports_for_filename
+# Description: Archives existing reports with the same filename before processing a new scan
+# Parameters: $1 - Output directory, $2 - Log type (basename)
+# Returns: Path to archived old JSON file if found, empty otherwise
+################################################################################
+archive_existing_reports_for_filename() {
+    local output_dir="$1"
+    local log_type="$2"
+    local archives_dir="$output_dir/archives"
+    local archive_date
+    archive_date=$(date '+%d-%m-%y')
+    local archived_json_file=""
+    local temp_file
+    temp_file=$(mktemp 2>/dev/null || echo "/tmp/archive_list_$$")
+    
+    # Create archives directory if it doesn't exist
+    mkdir -p "$archives_dir" 2>/dev/null || return 1
+    
+    # Find and archive existing JSON files with same base filename (excluding date/time)
+    # Match pattern: ${log_type}_DD-MM-YY_HHMM.json and extract base name
+    find "$output_dir/json" -maxdepth 1 -type f -name "${log_type}_*.json" 2>/dev/null | while read -r file; do
+        if [[ -f "$file" ]]; then
+            local filename
+            filename=$(basename "$file")
+            
+            # Extract base filename by removing date/time pattern (DD-MM-YY_HHMM.json)
+            # Check if filename matches pattern with date/time
+            if [[ "$filename" =~ ^${log_type}_[0-9]{2}-[0-9]{2}-[0-9]{2}_[0-9]{4}\.json$ ]]; then
+                # This is a file with date/time - archive it
+                local archived_file="$archives_dir/${archive_date}_${filename}"
+                mv "$file" "$archived_file" 2>/dev/null && chmod 644 "$archived_file"
+                log_message_with_timestamp "Archived existing JSON: $filename -> $(basename "$archived_file")" "$SEVERITY_INFO"
+                
+                # Store the most recent archived JSON file path
+                echo "$archived_file" >> "$temp_file"
+                
+                # Extract date/time part for matching related files
+                # Format: ${log_type}_DD-MM-YY_HHMM -> extract DD-MM-YY_HHMM
+                local datetime_part
+                datetime_part=$(echo "$filename" | sed -E "s/^${log_type}_([0-9]{2}-[0-9]{2}-[0-9]{2}_[0-9]{4})\.json$/\1/" || echo "")
+                
+                if [[ -n "$datetime_part" ]]; then
+                    # Archive corresponding CSV
+                    local csv_filename="${log_type}_${datetime_part}.csv"
+                    if [[ -f "$output_dir/csv/$csv_filename" ]]; then
+                        mv "$output_dir/csv/$csv_filename" "$archives_dir/${archive_date}_${csv_filename}" 2>/dev/null && chmod 644 "$archives_dir/${archive_date}_${csv_filename}"
+                        log_message_with_timestamp "Archived existing CSV: $csv_filename" "$SEVERITY_INFO"
+                    fi
+                    
+                    # Archive advanced analysis JSON (format: advanced_analysis_${log_type}_DD-MM-YY_HHMM.json)
+                    # Note: advanced JSON files are now stored in json/advanced/ folder
+                    local advanced_json_filename="advanced_analysis_${log_type}_${datetime_part}.json"
+                    if [[ -f "$output_dir/json/advanced/$advanced_json_filename" ]]; then
+                        mv "$output_dir/json/advanced/$advanced_json_filename" "$archives_dir/${archive_date}_${advanced_json_filename}" 2>/dev/null && chmod 644 "$archives_dir/${archive_date}_${advanced_json_filename}"
+                        log_message_with_timestamp "Archived existing advanced JSON: $advanced_json_filename" "$SEVERITY_INFO"
+                    elif [[ -f "$output_dir/json/$advanced_json_filename" ]]; then
+                        # Fallback: check old location in json/ folder
+                        mv "$output_dir/json/$advanced_json_filename" "$archives_dir/${archive_date}_${advanced_json_filename}" 2>/dev/null && chmod 644 "$archives_dir/${archive_date}_${advanced_json_filename}"
+                        log_message_with_timestamp "Archived existing advanced JSON: $advanced_json_filename" "$SEVERITY_INFO"
+                    fi
+                fi
+            fi
+        fi
+    done
+    
+    # Sort archived files by modification time and return the most recent one
+    if [[ -f "$temp_file" ]] && [[ -s "$temp_file" ]]; then
+        # Sort by filename (which contains date/time) to get most recent, then return last
+        sort -r "$temp_file" | head -n 1
+        rm -f "$temp_file"
+    else
+        rm -f "$temp_file"
+    fi
+}
+
+################################################################################
+# Function: compare_json_reports
+# Description: Compares old and new JSON reports to identify persistent similarities
+# Parameters: $1 - Old JSON file path, $2 - New JSON file path
+# Returns: None (logs comparison results)
+################################################################################
+compare_json_reports() {
+    local old_json="$1"
+    local new_json="$2"
+    
+    if [[ ! -f "$old_json" ]] || [[ ! -f "$new_json" ]]; then
+        log_message_with_timestamp "Cannot compare JSON files - one or both files missing" "$SEVERITY_MEDIUM"
+        return 1
+    fi
+    
+    log_message_with_timestamp "Comparing old and new JSON reports for similarities..." "$SEVERITY_INFO"
+    
+    # Use Python consumer for comprehensive comparison (preferred method)
+    if command -v python3 >/dev/null 2>&1 && [[ -f "CA_error_consumer.py" ]]; then
+        # Extract filename for comparison output naming
+        local new_json_basename
+        new_json_basename=$(basename "$new_json" .json)
+        # Extract base filename (excluding date/time)
+        local comparison_filename
+        comparison_filename=$(echo "$new_json_basename" | sed -E 's/_[0-9]{2}-[0-9]{2}-[0-9]{2}_[0-9]{4}$//' || echo "$new_json_basename")
+        if [[ "$comparison_filename" == "$new_json_basename" ]]; then
+            comparison_filename=$(echo "$new_json_basename" | cut -d'_' -f1)
+        fi
+        
+        # Generate comparison JSON filename
+        local comparison_date
+        comparison_date=$(date +"%d-%m-%y")
+        local comparison_time
+        comparison_time=$(date +"%H%M")
+        local comparison_json_file="$OUTPUT_DIR/comparisons/comparison_${comparison_filename}_${comparison_date}_${comparison_time}.json"
+        
+        # Generate comparison summary TXT filename (similar to alert summary)
+        local comparison_summary_file="$OUTPUT_DIR/text/comparison_summary_${comparison_filename}_$(date '+%d-%m').txt"
+        
+        # Run Python consumer comparison - save JSON and TXT summary
+        if python3 CA_error_consumer.py "$new_json" --compare "$old_json" --compare-output "$comparison_json_file" > "$comparison_summary_file" 2>&1; then
+            if [[ -f "$comparison_json_file" ]]; then
+                chmod 644 "$comparison_json_file"
+                log_message_with_timestamp "Comparison JSON saved to: $comparison_json_file" "$SEVERITY_INFO"
+            fi
+            if [[ -f "$comparison_summary_file" ]]; then
+                chmod 644 "$comparison_summary_file"
+                log_message_with_timestamp "Comparison summary saved to: $comparison_summary_file" "$SEVERITY_INFO"
+                return 0
+            fi
+        fi
+    else
+        # Note: All comparison functionality is now handled by Python consumer
+        # Bash script delegates all comparison to Python for comprehensive analysis
+        log_message_with_timestamp "Cannot compare JSON files - Python consumer not available" "$SEVERITY_MEDIUM"
+        log_message_with_timestamp "Comparison requires CA_error_consumer.py for comprehensive analysis" "$SEVERITY_INFO"
     fi
 }
 
@@ -535,31 +771,12 @@ generate_json_error_report() {
     local error_count=$(wc -l < "$error_patterns_file" 2>/dev/null || echo "0")
     local malformed_count=$(wc -l < "$malformed_entries_file" 2>/dev/null || echo "0")
     
-    # Count additional issue categories
+    # Note: Statistical analysis (counts, distributions) is now handled by Python consumer
+    # Bash script focuses on data extraction and basic structure only
+    # Simple counts for metadata only
     local security_count=$(wc -l < "$TEMPORARY_DIRECTORY/security_issues.txt" 2>/dev/null | tr -d ' \n\r' || echo "0")
     local performance_count=$(wc -l < "$TEMPORARY_DIRECTORY/performance_issues.txt" 2>/dev/null | tr -d ' \n\r' || echo "0")
     local connectivity_count=$(wc -l < "$TEMPORARY_DIRECTORY/connectivity_issues.txt" 2>/dev/null | tr -d ' \n\r' || echo "0")
-    
-    # Calculate severity distribution counts
-    local critical_count=$(grep -c -i "critical\|fatal\|emergency\|panic" "$error_patterns_file" 2>/dev/null || echo "0")
-    critical_count=$(echo "$critical_count" | tr -d '\n\r' | sed 's/[^0-9]//g')
-    critical_count=${critical_count:-0}
-    critical_count=$((critical_count + 0))  # Force numeric conversion
-    
-    local high_count=$(grep -c -i "error\|failed\|denied\|timeout\|abort" "$error_patterns_file" 2>/dev/null || echo "0")
-    high_count=$(echo "$high_count" | tr -d '\n\r' | sed 's/[^0-9]//g')
-    high_count=${high_count:-0}
-    high_count=$((high_count + 0))  # Force numeric conversion
-    
-    local medium_count=$(grep -c -i "warning\|retry\|slow\|performance" "$error_patterns_file" 2>/dev/null || echo "0")
-    medium_count=$(echo "$medium_count" | tr -d '\n\r' | sed 's/[^0-9]//g')
-    medium_count=${medium_count:-0}
-    medium_count=$((medium_count + 0))  # Force numeric conversion
-    
-    local low_count=$(grep -c -i "notice\|info\|debug" "$error_patterns_file" 2>/dev/null || echo "0")
-    low_count=$(echo "$low_count" | tr -d '\n\r' | sed 's/[^0-9]//g')
-    low_count=${low_count:-0}
-    low_count=$((low_count + 0))  # Force numeric conversion
     
     # Create JSON report structure
     cat > "$output_file" << EOF
@@ -580,47 +797,233 @@ generate_json_error_report() {
       "security_issues": $security_count,
       "performance_issues": $performance_count,
       "connectivity_issues": $connectivity_count,
-      "error_severity_distribution": {
-        "critical": $critical_count,
-        "high": $high_count,
-        "medium": $medium_count,
-        "low": $low_count
-      },
-      "issue_categories": {
-        "security": {
-          "count": $security_count,
-          "types": ["authentication_failure", "permission_denied", "intrusion_attempt", "malware_detection", "firewall_block"]
-        },
-        "performance": {
-          "count": $performance_count,
-          "types": ["high_cpu", "memory_usage", "disk_space", "slow_response", "resource_exhaustion"]
-        },
-        "connectivity": {
-          "count": $connectivity_count,
-          "types": ["network_timeout", "dns_failure", "connection_refused", "packet_loss", "service_unavailable"]
+      "note": "Advanced statistical analysis (distributions, trends, percentages) is performed by Python consumer"
+    },
+    "errors_by_severity": {
+      "LOW": [
+EOF
+
+    # Create temporary files for each severity (skip INFO as it's not an issue)
+    local low_file="$TEMPORARY_DIRECTORY/errors_low.txt"
+    local medium_file="$TEMPORARY_DIRECTORY/errors_medium.txt"
+    local high_file="$TEMPORARY_DIRECTORY/errors_high.txt"
+    local critical_file="$TEMPORARY_DIRECTORY/errors_critical.txt"
+    
+    true > "$low_file"
+    true > "$medium_file"
+    true > "$high_file"
+    true > "$critical_file"
+    
+    # Process all errors and sort by severity - inline processing
+    # Use ||| as delimiter to avoid issues with colons in content
+    # Skip INFO entries as they are not considered issues
+    while IFS= read -r line; do
+        # Parse line number from grep -n output (format: line_number:content)
+        local original_line_num=$(echo "$line" | cut -d':' -f1)
+        local line_content=$(echo "$line" | cut -d':' -f2-)
+        
+        # Determine severity first - skip INFO entries
+        local severity=$(classify_error_severity "$line_content")
+        
+        # Skip INFO entries as they are not issues
+        if [[ "$severity" == "INFO" ]]; then
+            continue
+        fi
+        
+        # Determine category
+        local category="error"
+        while IFS= read -r sec_line; do
+            sec_content=$(echo "$sec_line" | cut -d':' -f2-)
+            if [[ "$sec_content" == "$line_content" ]]; then
+                category="security"
+                break
+            fi
+        done < "$TEMPORARY_DIRECTORY/security_issues.txt" 2>/dev/null || true
+        
+        if [[ "$category" == "error" ]]; then
+            while IFS= read -r perf_line; do
+                perf_content=$(echo "$perf_line" | cut -d':' -f2-)
+                if [[ "$perf_content" == "$line_content" ]]; then
+                    category="performance"
+                    break
+                fi
+            done < "$TEMPORARY_DIRECTORY/performance_issues.txt" 2>/dev/null || true
+        fi
+        
+        if [[ "$category" == "error" ]]; then
+            while IFS= read -r conn_line; do
+                conn_content=$(echo "$conn_line" | cut -d':' -f2-)
+                if [[ "$conn_content" == "$line_content" ]]; then
+                    category="connectivity"
+                    break
+                fi
+            done < "$TEMPORARY_DIRECTORY/connectivity_issues.txt" 2>/dev/null || true
+        fi
+        
+        # Write to severity-specific file: line_number|||content|||category (using ||| as delimiter)
+        case "$severity" in
+            "LOW")
+                echo "${original_line_num}|||${line_content}|||${category}" >> "$low_file"
+                ;;
+            "MEDIUM")
+                echo "${original_line_num}|||${line_content}|||${category}" >> "$medium_file"
+                ;;
+            "HIGH")
+                echo "${original_line_num}|||${line_content}|||${category}" >> "$high_file"
+                ;;
+            "CRITICAL")
+                echo "${original_line_num}|||${line_content}|||${category}" >> "$critical_file"
+                ;;
+        esac
+    done < "$error_patterns_file" 2>/dev/null || true
+    
+    # Write LOW entries
+    entry_count=0
+    while IFS= read -r processed_line; do
+        if [[ -z "$processed_line" ]]; then
+            continue
+        fi
+        if [[ $entry_count -gt 0 ]]; then
+            echo "," >> "$output_file"
+        fi
+        # Parse using awk to properly handle ||| delimiter
+        local original_line_num=$(echo "$processed_line" | awk -F'\\|\\|\\|' '{print $1}')
+        local line_content=$(echo "$processed_line" | awk -F'\\|\\|\\|' '{print $2}')
+        local category=$(echo "$processed_line" | awk -F'\\|\\|\\|' '{print $3}')
+        local escaped_content=$(echo "$line_content" | tr -d '\000-\037' | sed 's/\\/\\\\/g; s/"/\\"/g; s/\t/\\t/g; s/\r/\\r/g; s/\n/\\n/g')
+        cat >> "$output_file" << EOF
+        {
+          "line_number": $original_line_num,
+          "content": "$escaped_content",
+          "category": "$category"
         }
-      }
+EOF
+        ((entry_count++))
+    done < "$low_file" 2>/dev/null || true
+    
+    cat >> "$output_file" << EOF
+      ],
+      "MEDIUM": [
+EOF
+    
+    # Write MEDIUM entries
+    entry_count=0
+    while IFS= read -r processed_line; do
+        if [[ -z "$processed_line" ]]; then
+            continue
+        fi
+        if [[ $entry_count -gt 0 ]]; then
+            echo "," >> "$output_file"
+        fi
+        # Parse using awk to properly handle ||| delimiter
+        local original_line_num=$(echo "$processed_line" | awk -F'\\|\\|\\|' '{print $1}')
+        local line_content=$(echo "$processed_line" | awk -F'\\|\\|\\|' '{print $2}')
+        local category=$(echo "$processed_line" | awk -F'\\|\\|\\|' '{print $3}')
+        local escaped_content=$(echo "$line_content" | tr -d '\000-\037' | sed 's/\\/\\\\/g; s/"/\\"/g; s/\t/\\t/g; s/\r/\\r/g; s/\n/\\n/g')
+        cat >> "$output_file" << EOF
+        {
+          "line_number": $original_line_num,
+          "content": "$escaped_content",
+          "category": "$category"
+        }
+EOF
+        ((entry_count++))
+    done < "$medium_file" 2>/dev/null || true
+    
+    cat >> "$output_file" << EOF
+      ],
+      "HIGH": [
+EOF
+    
+    # Write HIGH entries
+    entry_count=0
+    while IFS= read -r processed_line; do
+        if [[ -z "$processed_line" ]]; then
+            continue
+        fi
+        if [[ $entry_count -gt 0 ]]; then
+            echo "," >> "$output_file"
+        fi
+        # Parse using awk to properly handle ||| delimiter
+        local original_line_num=$(echo "$processed_line" | awk -F'\\|\\|\\|' '{print $1}')
+        local line_content=$(echo "$processed_line" | awk -F'\\|\\|\\|' '{print $2}')
+        local category=$(echo "$processed_line" | awk -F'\\|\\|\\|' '{print $3}')
+        local escaped_content=$(echo "$line_content" | tr -d '\000-\037' | sed 's/\\/\\\\/g; s/"/\\"/g; s/\t/\\t/g; s/\r/\\r/g; s/\n/\\n/g')
+        cat >> "$output_file" << EOF
+        {
+          "line_number": $original_line_num,
+          "content": "$escaped_content",
+          "category": "$category"
+        }
+EOF
+        ((entry_count++))
+    done < "$high_file" 2>/dev/null || true
+    
+    cat >> "$output_file" << EOF
+      ],
+      "CRITICAL": [
+EOF
+    
+    # Write CRITICAL entries
+    entry_count=0
+    while IFS= read -r processed_line; do
+        if [[ -z "$processed_line" ]]; then
+            continue
+        fi
+        if [[ $entry_count -gt 0 ]]; then
+            echo "," >> "$output_file"
+        fi
+        # Parse using awk to properly handle ||| delimiter
+        local original_line_num=$(echo "$processed_line" | awk -F'\\|\\|\\|' '{print $1}')
+        local line_content=$(echo "$processed_line" | awk -F'\\|\\|\\|' '{print $2}')
+        local category=$(echo "$processed_line" | awk -F'\\|\\|\\|' '{print $3}')
+        local escaped_content=$(echo "$line_content" | tr -d '\000-\037' | sed 's/\\/\\\\/g; s/"/\\"/g; s/\t/\\t/g; s/\r/\\r/g; s/\n/\\n/g')
+        cat >> "$output_file" << EOF
+        {
+          "line_number": $original_line_num,
+          "content": "$escaped_content",
+          "category": "$category"
+        }
+EOF
+        ((entry_count++))
+    done < "$critical_file" 2>/dev/null || true
+    
+    cat >> "$output_file" << EOF
+      ]
     },
     "error_entries": [
 EOF
-
-    # Add error entries to JSON
-    line_number=0
-    while IFS= read -r line; do
-        if [[ $line_number -gt 0 ]]; then
+    
+    # Add error_entries array (all errors combined) for Python consumer compatibility
+    # Exclude INFO entries as they are not considered issues
+    local all_errors_file="$TEMPORARY_DIRECTORY/all_errors.txt"
+    true > "$all_errors_file"
+    cat "$low_file" "$medium_file" "$high_file" "$critical_file" > "$all_errors_file" 2>/dev/null || true
+    
+    entry_count=0
+    while IFS= read -r processed_line; do
+        if [[ -z "$processed_line" ]]; then
+            continue
+        fi
+        if [[ $entry_count -gt 0 ]]; then
             echo "," >> "$output_file"
         fi
-        # Escape JSON special characters and remove control characters
-        escaped_line=$(echo "$line" | tr -d '\000-\037' | sed 's/\\/\\\\/g; s/"/\\"/g; s/\t/\\t/g; s/\r/\\r/g; s/\n/\\n/g')
+        # Parse using awk to properly handle ||| delimiter
+        local original_line_num=$(echo "$processed_line" | awk -F'\\|\\|\\|' '{print $1}')
+        local line_content=$(echo "$processed_line" | awk -F'\\|\\|\\|' '{print $2}')
+        local category=$(echo "$processed_line" | awk -F'\\|\\|\\|' '{print $3}')
+        local escaped_content=$(echo "$line_content" | tr -d '\000-\037' | sed 's/\\/\\\\/g; s/"/\\"/g; s/\t/\\t/g; s/\r/\\r/g; s/\n/\\n/g')
+        local severity=$(classify_error_severity "$line_content")
         cat >> "$output_file" << EOF
       {
-        "line_number": $((line_number + 1)),
-        "content": "$escaped_line",
-        "severity": "$(classify_error_severity "$line")"
+        "line_number": $original_line_num,
+        "content": "$escaped_content",
+        "severity": "$severity",
+        "category": "$category"
       }
 EOF
-        ((line_number++))
-    done < "$error_patterns_file" 2>/dev/null || true
+        ((entry_count++))
+    done < "$all_errors_file" 2>/dev/null || true
     
     cat >> "$output_file" << EOF
     ],
@@ -1316,7 +1719,18 @@ send_results_back_to_host() {
 chain_python_consumer_processing() {
     local json_report_file="$1"
     local python_script_path="CA_error_consumer.py"
-    local advanced_analysis_output="$OUTPUT_DIRECTORY/json/advanced_analysis_$(date +%m-%d_%H%M).json"
+    # Extract base filename from the JSON report file (format: filename_dd-mm-yy_hhmm.json)
+    local report_basename=$(basename "$json_report_file" .json)
+    # Extract the original filename (everything before the first underscore and date pattern)
+    # Format is: filename_dd-mm-yy_hhmm, so we need to extract "filename"
+    local source_filename=$(echo "$report_basename" | sed -E 's/_[0-9]{2}-[0-9]{2}-[0-9]{2}_[0-9]{4}$//' || echo "$report_basename")
+    # If extraction failed, try to get it from the basename (take everything before last underscore)
+    if [[ "$source_filename" == "$report_basename" ]]; then
+        source_filename=$(echo "$report_basename" | cut -d'_' -f1)
+    fi
+    # Generate advanced analysis filename with format: advanced_analysis_filename_dd-mm-yy_hhmm.json
+    # Save in json/advanced/ folder
+    local advanced_analysis_output="$OUTPUT_DIRECTORY/json/advanced/advanced_analysis_${source_filename}_$(date '+%d-%m-%y_%H%M').json"
     
     log_message_with_timestamp "Setting up Python consumer for advanced analysis" "$SEVERITY_INFO"
     
@@ -1342,7 +1756,13 @@ chain_python_consumer_processing() {
         log_message_with_timestamp "Advanced analysis saved to: $advanced_analysis_output" "$SEVERITY_INFO"
         
         # Also run alerts-only check for quick summary
-        local alerts_output="$OUTPUT_DIRECTORY/text/alerts_summary_$(date +%m-%d_%H%M).txt"
+        # Extract source filename for alert summary naming
+        local report_basename=$(basename "$json_report_file" .json)
+        local alert_source_filename=$(echo "$report_basename" | sed -E 's/_[0-9]{2}-[0-9]{2}-[0-9]{2}_[0-9]{4}$//' || echo "$report_basename")
+        if [[ "$alert_source_filename" == "$report_basename" ]]; then
+            alert_source_filename=$(echo "$report_basename" | cut -d'_' -f1)
+        fi
+        local alerts_output="$OUTPUT_DIRECTORY/text/alert_summary_${alert_source_filename}_$(date '+%d-%m').txt"
         if python3 "$python_script_path" "$json_report_file" --alerts-only > "$alerts_output" 2>&1; then
             chmod 644 "$alerts_output"
             log_message_with_timestamp "Alert summary saved to: $alerts_output" "$SEVERITY_INFO"
@@ -1969,10 +2389,15 @@ process_log_file() {
     fi
     
     # Generate output files
-    current_date=$(date +"%m-%d")
+    current_date=$(date +"%d-%m-%y")
     current_time=$(date +"%H%M")
-    base_filename=$(basename "$file_path" .log)
+    base_filename=$(basename "$file_path")
+    # Remove extension to get clean filename
     log_type=$(basename "$file_path" | cut -d'.' -f1)
+    
+    # Archive existing reports for the same filename before processing new scan
+    local archived_old_json=""
+    archived_old_json=$(archive_existing_reports_for_filename "$OUTPUT_DIR" "$log_type" | tail -n 1)
     
     # Create output subdirectories
     mkdir -p "$OUTPUT_DIR/json"
@@ -1989,6 +2414,11 @@ process_log_file() {
     if [[ -f "$json_output_file" ]]; then
         log_message_with_timestamp "JSON file confirmed created: $json_output_file" "$SEVERITY_INFO"
         
+        # Compare with old JSON if one was archived
+        if [[ -n "$archived_old_json" ]] && [[ -f "$archived_old_json" ]]; then
+            compare_json_reports "$archived_old_json" "$json_output_file"
+        fi
+        
         # Also output JSON to stdout if redirecting (for backward compatibility)
         if [[ ! -t 1 ]]; then
             # stdout is redirected, also output JSON content
@@ -1998,12 +2428,9 @@ process_log_file() {
         log_message_with_timestamp "WARNING: JSON file not found after generation: $json_output_file" "$SEVERITY_HIGH"
     fi
     
-    # Generate CSV report if requested
-    csv_output_file=""
-    if [[ "$FORCE_JSON" == true ]] || [[ -n "${csv_report:-}" ]]; then
-        csv_output_file="$OUTPUT_DIR/csv/${log_type}_${current_date}_${current_time}.csv"
-        generate_csv_error_report "$csv_output_file" "$file_path" "$LOG_FORMAT"
-    fi
+    # Always generate CSV report
+    csv_output_file="$OUTPUT_DIR/csv/${log_type}_${current_date}_${current_time}.csv"
+    generate_csv_error_report "$csv_output_file" "$file_path" "$LOG_FORMAT"
     
     # Save local copies with host-based naming if this was remote processing
     if [[ "${REMOTE_PROCESSING_MODE:-false}" == true ]] && [[ -n "${SSH_CONNECTION:-}" ]]; then
@@ -2019,7 +2446,13 @@ process_log_file() {
         # Send results back to remote host if this was remote processing
         if [[ "${REMOTE_PROCESSING_MODE:-false}" == true ]] && [[ -n "${SSH_CONNECTION:-}" ]]; then
             # Find the most recent advanced analysis file
-            advanced_analysis_file="$OUTPUT_DIR/json/advanced_analysis_$(date +%m-%d_%H%M).json"
+            # Extract filename from json_output_file to match advanced analysis filename format
+            local report_basename=$(basename "$json_output_file" .json)
+            local source_filename=$(echo "$report_basename" | sed -E 's/_[0-9]{2}-[0-9]{2}-[0-9]{2}_[0-9]{4}$//' || echo "$report_basename")
+            if [[ "$source_filename" == "$report_basename" ]]; then
+                source_filename=$(echo "$report_basename" | cut -d'_' -f1)
+            fi
+            advanced_analysis_file="$OUTPUT_DIR/json/advanced/advanced_analysis_${source_filename}_$(date '+%d-%m-%y_%H%M').json"
             if [[ -f "$advanced_analysis_file" ]]; then
                 send_results_back_to_host "$SSH_CONNECTION" "$advanced_analysis_file"
             else
@@ -2038,6 +2471,9 @@ process_log_file() {
     
     log_message_with_timestamp "Log processing completed successfully" "$SEVERITY_INFO"
     log_message_with_timestamp "Output files available in: $OUTPUT_DIR" "$SEVERITY_INFO"
+    
+    # Archive old reports (optional - keep last 30 days by default)
+    archive_old_reports "$OUTPUT_DIR" 30
 }
 
 ################################################################################
@@ -2261,9 +2697,10 @@ elif [[ -n "$LOG_FILE_PATH" ]]; then
     extract_error_patterns_from_log "$LOG_FILE_PATH" "$LOG_FORMAT"
     
     # Generate output files with better segregation
-    current_date=$(date +"%m-%d")
+    current_date=$(date +"%d-%m-%y")
     current_time=$(date +"%H%M")
-    base_filename=$(basename "$LOG_FILE_PATH" .log)
+    base_filename=$(basename "$LOG_FILE_PATH")
+    # Remove extension to get clean filename
     log_type=$(basename "$LOG_FILE_PATH" | cut -d'.' -f1)
     json_output_file="$OUTPUT_DIR/json/${log_type}_${current_date}_${current_time}.json"
     
@@ -2276,12 +2713,9 @@ elif [[ -n "$LOG_FILE_PATH" ]]; then
         cat "$json_output_file"
     fi
     
-    # Generate CSV report if requested
-    csv_output_file=""
-    if [[ "$FORCE_JSON" == true ]] || [[ -n "${csv_report:-}" ]]; then
-        csv_output_file="$OUTPUT_DIR/csv/${log_type}_${current_date}_${current_time}.csv"
-        generate_csv_error_report "$csv_output_file" "$LOG_FILE_PATH" "$LOG_FORMAT"
-    fi
+    # Always generate CSV report
+    csv_output_file="$OUTPUT_DIR/csv/${log_type}_${current_date}_${current_time}.csv"
+    generate_csv_error_report "$csv_output_file" "$LOG_FILE_PATH" "$LOG_FORMAT"
     
     # Save local copies with host-based naming if this was remote processing
     if [[ "${REMOTE_PROCESSING_MODE:-false}" == true ]] && [[ -n "${SSH_CONNECTION:-}" ]]; then
@@ -2297,7 +2731,13 @@ elif [[ -n "$LOG_FILE_PATH" ]]; then
         # Send results back to remote host if this was remote processing
         if [[ "${REMOTE_PROCESSING_MODE:-false}" == true ]] && [[ -n "${SSH_CONNECTION:-}" ]]; then
             # Find the most recent advanced analysis file
-            advanced_analysis_file="$OUTPUT_DIR/json/advanced_analysis_$(date +%m-%d_%H%M).json"
+            # Extract filename from json_output_file to match advanced analysis filename format
+            report_basename=$(basename "$json_output_file" .json)
+            source_filename=$(echo "$report_basename" | sed -E 's/_[0-9]{2}-[0-9]{2}-[0-9]{2}_[0-9]{4}$//' || echo "$report_basename")
+            if [[ "$source_filename" == "$report_basename" ]]; then
+                source_filename=$(echo "$report_basename" | cut -d'_' -f1)
+            fi
+            advanced_analysis_file="$OUTPUT_DIR/json/advanced/advanced_analysis_${source_filename}_$(date '+%d-%m-%y_%H%M').json"
             if [[ -f "$advanced_analysis_file" ]]; then
                 send_results_back_to_host "$SSH_CONNECTION" "$advanced_analysis_file"
             else
