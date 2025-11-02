@@ -520,7 +520,7 @@ python3 CA_error_consumer.py --auto
 ### 1. Clone Repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Jamesscott34/Scripting_CA1.git
 cd Scripting_CA1
 ```
 
